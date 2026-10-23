@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "galaxy-structure-lab"
+version = "0.3.0"
+description = "Galaxy morphology measurements and testable fluid-halo baselines"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24,<3",
+  "scipy>=1.10,<2",
+  "pandas>=1.5,<4",
+  "matplotlib>=3.9,<4",
+  "astropy>=5,<8",
+  "scikit-learn>=1.2,<2",
+  "scikit-image>=0.20,<1",
+  "joblib>=1.2,<2",
+  "requests>=2.28,<3",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7,<9"]
+
+[project.scripts]
+galaxy-lab = "galaxy_lab.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["galaxy_lab*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

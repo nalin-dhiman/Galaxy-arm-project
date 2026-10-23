@@ -1,0 +1,563 @@
+\documentclass[11pt]{article}
+\input{paper_setup.tex}
+\title{Measuring spiral structure and testing its incremental information for galaxy redshift estimation}
+\author{\PaperAuthors\PaperAffiliation}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+Resolved spiral structure is an accessible source of information about galaxies,
+but its usefulness for locating galaxies must be measured separately from the
+ability to recognize their arms. We present a compact, interpretable pipeline
+that combines calibrated three-band images, multiscale spatial filters and
+human arm-region annotations, then tests whether the resulting structure
+summaries improve catalog-redshift prediction. Sky groups separate training,
+calibration and testing. On 29 test galaxies, the arm-region classifier reaches
+mean average precision 0.720, compared with 0.655 for a capacity-matched
+brightness/radius comparator; the equal-group gain is 0.0848, with a 95\%
+bootstrap interval of 0.0475--0.1247. Applied without retraining to additional
+strong spirals in previously excluded sky regions, it reaches 0.689 on 57
+evaluable galaxies. Eight predicted-region summaries, however, do not establish
+an incremental redshift gain over photometry, apparent geometry and simple image
+descriptors. The equal-group reduction in absolute redshift error is
+$-0.000471$ on the original 29 galaxies and $+0.000440$ on 59 additional galaxies;
+both intervals include zero. Stronger retrospective morphology baselines leave
+this conclusion unchanged. A separate human-centerline experiment shows why
+region agreement cannot be used as a substitute for validated pitch or width
+measurements. The pipeline supplies useful region measurements and a controlled
+test of their downstream information, while keeping angular structure,
+statistical redshift and physically calibrated distance distinct.
+\end{abstract}
+\noindent\textbf{Keywords:} galaxies: spiral --- methods: image processing ---
+methods: statistical --- techniques: photometric --- distance scale
+
+\section{Introduction}
+Spiral arms are among the most recognizable structures in astronomical images.
+Their winding, separation, contrast and colors can be measured without first
+assigning a mass model to the galaxy. A practical measurement system could
+therefore support studies of disk structure, provide regions for spatially
+resolved spectroscopy, and offer additional predictors for statistical redshift
+inference. These applications ask different questions. Recognizing where people
+draw an arm is a region-classification problem; determining its centerline or
+pitch is a geometric problem; estimating redshift is a supervised inference
+problem. Reliable progress requires each link to be evaluated on its own.
+
+Automatic arm measurement already has a substantial literature.
+\citet{davis2014} introduced SpArcFiRe, which extracts arm segments and fits
+logarithmic spirals. \citet{hart2017} combined these measurements with Galaxy Zoo
+classifications to investigate arm formation. Citizen-science projects supply
+complementary information: Galaxy Zoo 2 describes detailed visual morphology
+\citep{willett2013}; Galaxy Zoo:3D supplies spatial masks of arms, bars and
+foreground stars \citep{masters2021}; and Galaxy Builder provides multicomponent
+models and human-guided arm traces \citep{lingard2020,lingard2021}. More recently,
+the ZooBot:3D preprint describes large-scale neural arm/bar segmentation in
+Legacy Survey images \citep{spindler2026}. These studies motivate a focused
+question about the \emph{information contributed by an explicit arm representation},
+rather than a claim to have invented arm detection.
+
+Morphology can also help photometric-redshift estimation. The benefit depends
+on the photometric bands, sample and representation. \citet{soo2018} studied
+size, ellipticity, S\'ersic index and surface brightness, finding greater
+improvements when fewer bands were available. \citet{pasquet2019} demonstrated
+redshift prediction directly from multiband images. An arm-specific feature
+may be useful even when global morphology is already supplied, but this must
+be tested against a baseline with comparable model capacity and measurement
+quality. Otherwise, an apparent improvement could reflect brightness, apparent
+size, resolution or observational selection rather than spiral structure.
+
+This paper makes three connected contributions. First, it presents a transparent
+three-band measurement pipeline with angular filter scales, explicit masks and
+separate artifacts for visualization and downstream inference. Second, it
+quantifies region-ranking performance against human annotations, including a
+spatially distinct additional cohort. Third, it measures the incremental value
+of eight predicted-region summaries for redshift, with common regressors,
+shared quality covariates and uncertainty calculated at the sky-group level.
+Separate geometric and dynamical analyses establish which further physical
+interpretations would require additional evidence. The software is intended
+to make these distinctions operational, so that a visually convincing map
+does not silently become a claimed physical measurement.
+
+\section{What an image can measure}
+\label{sec:theory}
+\subsection{Angular structure, physical size and redshift}
+For a small angular separation $\theta$, a transverse physical separation is
+\begin{equation}
+ L=D_A\theta, \qquad \theta\ \hbox{in radians},
+ \label{eq:angular}
+\end{equation}
+where $D_A$ is angular-diameter distance \citep{hogg1999}. A digital separation
+$s$ pixels becomes $\theta=sp$ for a local angular scale $p$. This determines an
+angle, not a distance: the same angular pattern can arise from different
+intrinsic sizes at different distances. Similarly, an apparent flux constrains
+luminosity only through a distance-dependent conversion. In the nearby Euclidean
+limit, simultaneous changes $D\mapsto\lambda D$, $L_{\rm size}\mapsto\lambda
+L_{\rm size}$ and $L_{\rm luminosity}\mapsto\lambda^2L_{\rm luminosity}$ preserve
+apparent size and total flux. Population relations, spectral information and
+selection can make some such combinations more probable than others. A learned
+redshift estimator uses those calibrated statistical relations.
+
+Redshift and distance are consequently separate outputs. The target in this
+study is a catalog spectroscopic redshift, $z$. A cosmological conversion would
+require a cosmological model, and local peculiar velocities also affect the
+relation between observed redshift and expansion distance. We report errors in
+$z$ and do not reinterpret them as independently validated distance errors.
+Physical arm separations can be reported when an external distance is supplied,
+with that distance uncertainty propagated.
+
+\subsection{Projected and deprojected spiral geometry}
+Let $(x,y)$ be angular coordinates relative to a supplied center. Rotating by the
+disk position angle gives $(x',y')$. For a thin circular disk inclined by $i$,
+\begin{equation}
+ X=x',\qquad Y=\frac{y'}{\cos i},\qquad
+ R_\theta=(X^2+Y^2)^{1/2},\qquad \phi=\operatorname{atan2}(Y,X).
+ \label{eq:deproject}
+\end{equation}
+The approximation becomes sensitive to geometry errors at high inclination.
+It is appropriate only after specifying what defines the disk plane; a bar,
+bulge or foreground object can bias a moment-based estimate.
+
+A logarithmic arm segment obeys
+\begin{equation}
+ R_\theta(\phi)=R_0\exp[b(\phi-\phi_0)],\qquad
+ |\psi|=\arctan |b|,
+ \label{eq:pitch}
+\end{equation}
+where $\psi$ is the pitch angle relative to the local circular direction.
+Pitch is dimensionless and does not require a distance, but its measured value
+depends on the center, inclination, position angle and selected arm segment.
+Different arms in one galaxy need not share one pitch
+\citep{davis2014,lingard2021}. A useful region map alone does not determine these
+geometric quantities. For this reason the primary classifier works in a fixed
+\emph{projected circular annulus}; deprojection is reserved for a separate
+centerline validation with externally supplied disk geometry.
+
+\subsection{Passbands and spatial filters}
+A passband measures a different part of the spectral energy distribution.
+A spatial filter transforms measurements already present in an image. We use
+the calibrated $g,r,z$ science planes individually, preserving their different
+brightness and color information. A single-band image is naturally a grayscale
+measurement. Converting a rendered color image into black and white changes its
+display representation; it does not supply a new passband or restore calibrated
+fluxes that were lost during rendering.
+
+For a band image $I_b$, write its radial-profile residual as
+$J_b=I_b-B_b-m_b(R_\theta)$, where $B_b$ is a robust background and $m_b$ a
+radial median profile. Gaussian scale space is
+\begin{equation}
+ L_b(\bm{x};\sigma)=G_\sigma*J_b,
+ \qquad
+ G_\sigma(\bm{x})=\frac{1}{2\pi\sigma^2}
+ \exp\left[-\frac{|\bm{x}|^2}{2\sigma^2}\right].
+ \label{eq:scale}
+\end{equation}
+Differences of smoothed images emphasize local contrast; gradients locate
+changes; Hessian eigenvalues distinguish elongated bright ridges from locally
+isotropic structure. Scale-normalized derivatives follow standard scale-space
+reasoning \citep{lindeberg1998}, and the ridge descriptor is related to established
+Hessian-based enhancement \citep{frangi1998}. Our scales are fixed angular
+standard deviations of 0.4, 0.8 and 1.6 arcsec. They are measurement choices,
+not inferred physical arm widths. The full feature definitions and treatment
+of noise, boundaries and masks appear in the Supplementary Material.
+
+\section{Observations and experimental design}
+\label{sec:data}
+The original sample contains 160 resolved strong spirals selected
+deterministically from the public Galaxy Zoo:3D catalog, excluding 32 earlier
+feasibility objects. The spiral-vote fraction is at least 0.7 and the source
+selection requests one center. Native Legacy Survey DR9 $g,r,z$ images,
+inverse-variance planes and local point-spread functions (PSFs) provide the
+science measurements \citep{dey2019}. Human spatial labels and centers come from
+Galaxy Zoo:3D \citep{masters2021}. Observed catalog $ugriz$ photometry, apparent
+geometry and the heliocentric \texttt{NSA\_Z} target are matched by identity to
+MaNGA DRPall, within the SDSS data framework
+\citep{york2000,bundy2015,dr172022}.
+
+Ten-degree right-ascension/declination tiles define sky groups. There are
+91 training galaxies in 38 groups, 40 calibration galaxies in 13 groups and
+29 test galaxies in 13 groups. No group crosses these boundaries. Spatial
+grouping addresses a common weakness of random splitting in structured data
+\citep{roberts2017}; it is not a proof that all remaining groups have independent
+calibration errors. Training is used for fitted coefficients and model
+selection, calibration for a visualization sigmoid and prediction intervals,
+and testing for the final original comparison.
+
+An additional acquisition excludes all 192 earlier identifiers and all 67
+earlier sky tiles. It contains 99 objects in 39 new tiles: 59 eligible strong
+spirals in 30 groups, plus 40 weak-spiral or low-vote comparison objects. The
+59 strong spirals form the principal additional redshift cohort. All are
+evaluated with the original frozen models, without threshold or calibration
+updates. This tests new sky regions within the same imaging survey.
+
+Coverage is retained explicitly. One additional strong spiral has no usable
+native science/PSF product after repeated requests. Another lacks both scoring
+classes after masking. Consequently arm AP is defined for 57 of 59 strong
+spirals; catalog-redshift predictions retain all 59 rows using training-fitted
+imputation when needed. A low-vote or unasked arm task is treated as unknown,
+not as a verified arm-free control.
+
+\begin{figure}[htbp]
+\centering\figfile{pipeline_splits}{.98}
+\caption{Measurement and evaluation design. The image-to-region model and
+the redshift regressors are trained using only training sky groups. Display
+calibration is separate from the raw-score representation used for redshift.
+The additional cohort is evaluated with the frozen transformations and models.}
+\label{fig:pipeline}
+\end{figure}
+
+\section{Measurement and inference methods}
+\label{sec:methods}
+\subsection{Registered science measurements and reference regions}
+Each galaxy is measured within a fixed 3--23 arcsec annulus about its supplied
+human center. Foreground-star labels exclude contaminated pixels. All bands use
+the same native grid: only the reference labels are mapped through WCS by
+nearest neighbor. The reader checks the target-containing image brick, band,
+image/inverse-variance pairing and coordinate registration. PSF matching broadens
+each band to the worst local Gaussian moment-equivalent width. A shared guard
+excludes pixels within four times the largest filter scale of masked holes or
+boundaries, in addition to the convolution mask treatment.
+
+The reference-positive class is a pixel covered by at least three human arm
+polygons. Other scored pixels form the comparison class. This is an annotation
+agreement target: an unmarked pixel can contain an incompletely traced arm.
+Five-vote labels provide a sensitivity analysis, with the changing positive
+prevalence and evaluable sample reported separately.
+
+\subsection{A compact multiscale region classifier}
+The 44 local features comprise three radius terms, 13 intensity/contrast/shape
+terms in each of three bands and two signed color terms. They include radial
+profile and residual brightness, differences of Gaussians, gradients, a
+Laplacian-like response, bright-ridge strength and ridge orientation relative
+to the center. None requires a redshift, physical size or mass model.
+
+Seven fixed logistic/ExtraTrees candidates are compared by three-fold
+sky-group cross-validation within the training set. ExtraTrees uses randomized
+tree ensembles \citep{geurts2006}, implemented with scikit-learn
+\citep{pedregosa2011}. The selected full model has 80 trees, maximum depth 12,
+minimum leaf size 32 and a feature fraction of 0.7. Each training galaxy
+contributes at most 400 positive and 400 comparison pixels, with equal total
+weight per galaxy. Thus a galaxy with more image pixels cannot dominate simply
+because it covers more area.
+
+The brightness/radius comparator has the same eligible logistic/tree capacities
+but only three radius terms, three normalized band intensities and the $g$-band
+radial profile. Training cross-validation also selects its depth-12 tree model.
+Raw $g$ intensity and a circular-profile score provide simpler comparisons.
+This design asks whether local multiscale features add beyond intensity and
+radius under a controlled learner budget.
+
+The visualization artifact applies a positive-slope sigmoid to the logit of
+the tree score, following the calibration approach associated with
+\citet{platt1999}. Calibration data select one display threshold, 0.30.
+Average precision (AP) evaluates score ranking and is unaffected by the monotone
+calibration. We compute AP separately for each galaxy and average it, avoiding
+a pooled-pixel metric dominated by large objects. Fixed-threshold precision,
+recall, F1 and intersection-over-union are secondary region diagnostics.
+
+\subsection{A separate representation for downstream redshift}
+For downstream inference we save the training-only classifier \emph{without}
+the display sigmoid, using a fixed raw threshold of 0.5. Training galaxies
+receive descriptors from a classifier fitted without their entire sky group;
+calibration and test galaxies receive descriptors from the complete training-only
+model. The summary annulus depends on the image masks, not on human arm coverage.
+Calibration arm labels therefore do not enter redshift features.
+
+Let $s_j\in[0,1]$ be this raw score at valid pixel $j$ and $u_j$ its radius
+divided by 23 arcsec. The eight arm summaries are the mean, 90th percentile and
+standard deviation of $s$, the score-weighted mean of $u$, mean scores inside
+and outside $u=0.55$, mean binary entropy and the fraction with $s\geq0.5$.
+The raw score ranks agreement with the annotation protocol; balancing classes
+during training means it is not a calibrated physical arm probability.
+
+Four feature families share one regression design. P contains five observed
+magnitudes and four adjacent colors. PG adds angular half-light radius and axis
+ratio. PGI adds seven simple image descriptors: three annular positive fluxes,
+a radial half-flux scale, residual contrast and two colors. PGIA adds the eight
+arm summaries. All share magnitude-error, PSF-width and image-noise covariates,
+with consistent missing-feature handling. This reduces the opportunity for arm
+availability or resolution to act as an exclusive proxy for redshift.
+
+Each regressor uses 128 ExtraTrees, minimum leaf size four and the same seed,
+with training-median imputation and missingness indicators. The fitted target is
+$t=\log(1+z)$ and predictions are transformed back through
+$\hat z=\exp(\hat t)-1$. Training cross-validation selects P as the retained
+deployment family. The scientific arm contrast remains PGI versus PGIA,
+regardless of this choice. No original or additional test result changes the
+deployment selection.
+
+\subsection{Paired effects and uncertainty}
+For a sky group $g$ containing $n_g$ galaxies, define
+\begin{equation}
+ d_g=\frac{1}{n_g}\sum_{i\in g}
+ \left[|z_i-\hat z_{i,\rm PGI}|-|z_i-\hat z_{i,\rm PGIA}|\right],
+ \qquad \Delta=\frac{1}{G}\sum_{g=1}^G d_g.
+ \label{eq:effect}
+\end{equation}
+Positive $\Delta$ favors the arm summaries. Equal-group weighting differs
+deliberately from galaxy-weighted mean absolute error (MAE). Percentile
+bootstrap intervals resample whole groups \citep{efron1979}; the uncertainty
+unit is not a pixel. The two cohorts are reported separately. The final
+statistical analysis uses 100,000 group resamples and also examines a
+Student-$t$ interval as a small-sample sensitivity.
+
+For interpretable effect sizes we additionally examine a reduction
+$\delta_z=0.001$. This is a retrospective practical margin for this pilot,
+not a physically validated universal threshold. A confidence interval that
+crosses zero is inconclusive about the sign. To support practical equivalence
+at this margin, the relevant interval would need to be contained within
+$[-\delta_z,\delta_z]$; a nonsignificant difference alone is insufficient.
+
+Nominal 90\% split-conformal intervals use the maximum absolute residual in
+$t$ within each calibration sky group \citep{lei2018,angelopoulos2021}.
+With 13 groups the finite-sample rank is the largest calibration group residual.
+These intervals concern catalog redshift in comparable exchangeable groups.
+Distribution shift requires separate treatment \citep{tibshirani2019}.
+
+\section{Results}
+\label{sec:results}
+\subsection{Multiscale features improve agreement with arm regions}
+The original test classifier reaches galaxy-macro AP 0.7197, versus 0.6551
+for the capacity-matched brightness/radius comparator, 0.6267 for raw $g$
+brightness and 0.4904 for the circular-profile score. The improvement is not
+limited to a visibly selected example: the equal-sky-group AP gain over the
+matched comparator is 0.0848, with a 95\% bootstrap interval of
+0.0475--0.1247. At the fixed display threshold, macro precision is 0.590,
+recall 0.678 and F1 0.581. These results establish a useful ranking improvement
+for the specified region task and selected population.
+
+Without retraining, mean AP is 0.6890 on the 57 evaluable additional strong
+spirals, with a sky-group bootstrap interval of 0.6409--0.7376. Median
+fixed-threshold F1 is 0.579. This provides evidence that the region-ranking
+performance extends to additional sky regions in the same survey. It does
+not validate every output as a complete physical arm.
+
+\begin{figure}[p]
+\centering\tallfigfile{arm_region_examples}
+\caption{Fixed science-image, raw-score and reference panels: the first two
+additional strong spirals, first weak/bar-proxy object and first unasked control
+in the pre-scoring gallery. Scores use the training-only uncalibrated branch;
+they are distinct from geometric centerlines or physical arm probabilities.
+The no-consensus case is retained, and an unasked task has unknown truth.
+White valid unmarked pixels are comparison labels, not verified physical absence.
+Legacy Surveys / D. Lang (Perimeter Institute). Human region references:
+SDSS-IV and Galaxy Zoo:3D volunteers \citep{masters2021}.}
+\label{fig:examples}
+\end{figure}
+\begin{figure}[htbp]
+\centering\figfile{arm_region_validation}{.94}
+\caption{Arm-region validation. Original-cohort comparisons use the same
+scoring pixels and independently selected matched-capacity baseline; additional
+cohort performance uses the frozen full classifier. Galaxy-macro AP and
+equal-sky-group contrasts are distinct estimands. Reference-positive pixels
+require at least three human polygons.}
+\label{fig:ap}
+\end{figure}
+
+\FloatBarrier
+\subsection{The incremental redshift effect remains unresolved}
+Table~\ref{tab:redshift} reports galaxy-weighted MAE for all four frozen
+families. The original-cohort PGI-to-PGIA contrast is negative at equal-group
+weighting, $\Delta=-0.000471$, with a 95\% interval
+$[-0.001391,0.000367]$. On the additional 59 strong spirals it is positive,
+$\Delta=0.000440$, with interval $[-0.000555,0.001452]$.
+Both include zero. The original interval excludes a gain as large as the
+retrospective margin of 0.001, while the additional-cohort interval still
+permits a gain at that margin. Neither establishes practical equivalence.
+
+\begin{table}[tb]
+\centering
+\caption{Catalog-redshift prediction by the original frozen regressors.
+MAE weights galaxies equally; the principal arm contrast in
+equation~\eqref{eq:effect} weights sky groups equally. All 59 additional rows
+remain in the analysis, including the missing-image row.}
+\label{tab:redshift}
+\begin{tabular}{lrr}
+\toprule
+Feature family & Original: 29 galaxies & Additional: 59 galaxies\\
+\midrule
+P: photometry & 0.009635 & 0.013190\\
+PG: P + apparent geometry & 0.009469 & 0.012560\\
+PGI: PG + simple image summaries & 0.009266 & 0.012767\\
+PGIA: PGI + arm-region summaries & 0.009751 & 0.012532\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering\figfile{grouped_redshift_effects}{.95}
+\caption{Paired reductions in absolute catalog-redshift error from adding
+arm-region summaries. Positive values favor arms. The original and additional
+cohorts use frozen original models. L5/L3 comparisons are retrospective
+controls. Intervals resample whole sky groups. The shaded practical margin
+$\pm0.001$ was introduced retrospectively and does not convert this pilot into
+a confirmatory equivalence study.}
+\label{fig:effects}
+\end{figure}
+
+The P family, retained by training selection, has original coverage 29/29
+with median redshift-interval width 0.08954. On the additional cohort, coverage
+is 57/59 and median width 0.09043. The corresponding whole-group coverage is
+28/30. These broad intervals are informative about limited precision, even
+when empirical coverage is high. Input-only support checks flag 15/59
+additional P predictions for possible abstention. Table~\ref{tab:redshift}
+keeps all rows instead of reporting only favorable accepted predictions.
+
+\begin{figure}[htbp]
+\centering\figfile{redshift_predictions}{.94}
+\caption{Frozen PGI and PGIA predictions and absolute-error cumulative
+distributions for all 59 additional strong spirals. The missing-image row is
+imputed and marked, and no input-support screening removes rows. The
+galaxy-weighted MAEs differ from the equal-group contrast in
+Figure~\ref{fig:effects}. These are catalog redshifts, not independent geometric
+distances.}
+\label{fig:predictions}
+\end{figure}
+
+\FloatBarrier
+\subsection{Stronger photometric morphology controls}
+We performed an additional, explicitly retrospective baseline analysis
+motivated by \citet{soo2018}. L5 contains observed five-band photometry,
+apparent geometry, observed $r$-band surface brightness and S\'ersic index,
+plus the shared quality block. L5A adds the same eight arm summaries. L3/L3A
+restrict explicit photometry and magnitude errors to $g,r,z$, retaining the
+specified angular structure and $grz$ image-quality information. All use the
+same 91 training galaxies and common ExtraTrees capacity; the additional
+cohort does not select new hyperparameters.
+
+On 59 additional strong spirals, equal-group MAE falls from 0.013132 to
+0.012547 for L5/L5A, a gain of 0.000584 with interval
+$[-0.000331,0.001658]$. For L3/L3A it falls from 0.012928 to 0.012786,
+a gain of 0.000142 with interval $[-0.000802,0.001195]$. These controls leave
+the incremental arm result unresolved. They are a controlled implementation
+of literature-motivated observable features, not a reproduction of the
+Morpho-z algorithm, training population or survey. The three-band restriction
+also does not constitute a cross-survey experiment.
+
+\subsection{Centerlines and pitch require their own validation}
+A separate 24-object Galaxy Builder sample supplies genuine human centerlines
+and fitted disk geometry \citep{lingard2020,lingard2021}. Twelve development
+objects select one classical logarithmic-template configuration; twelve test
+objects assess localization within the supplied PSF tolerance. Test mean
+centerline F1 is 0.223, with a whole-galaxy interval of 0.105--0.353. The
+extractor predicts 70 segments against 19 retained reference segments; seven
+spatially matched segments have median absolute pitch error 11.42 degrees.
+This fails the development goal of F1 at least 0.7 and matched pitch error
+at most 5 degrees. It is a different experiment from the supervised region
+classifier and should not be interpreted as its centerline accuracy.
+
+\begin{figure}[htbp]
+\centering\figfile{centerline_validation}{.93}
+\caption{Separate human-centerline validation of the classical geometry
+prototype. Region labels and centerlines answer different questions. Pitch
+error is conditional on the seven matched segments, while localization F1
+includes unmatched predictions. SDSS imaging; Galaxy Builder volunteers and
+author-fitted references \citep{lingard2020,lingard2021}.}
+\label{fig:centerlines}
+\end{figure}
+
+An archival comparison uses actual published SpArcFiRe-related galaxy pitches
+from the \citet{hart2017} catalog. All 24 Galaxy Builder identifiers match;
+13 have finite reliable-arc pitches and 11 retain the published missing
+sentinel. On the six measured test identities, the mean absolute difference
+from the Galaxy Builder reference summary is 7.73 degrees, with a conditional
+interval of 5.06--10.69 degrees. The two galaxy summaries weight different
+selected arcs, and this is a catalog comparison rather than a rerun of the
+author pipeline. It supports attention to reference conventions and missing
+coverage, not a ranking of the present extractor against SpArcFiRe.
+
+\FloatBarrier
+\section{Interpretation and applications}
+The clearest positive result is that a compact multiscale representation
+improves region ranking beyond brightness and radius under a matched learner
+budget. Its constituent measurements have a direct use: arm-associated pixels
+can be compared with interarm regions, cross-matched to resolved spectroscopy,
+or used to prioritize objects for geometric modeling. The frozen additional
+cohort demonstrates useful same-survey transfer of that region task.
+
+The redshift experiment addresses a further question, and its answer is more
+limited. Once colors, apparent geometry and quality information are present,
+the eight regional summaries have no established additional value in these
+cohorts. This does not negate the region measurement. Nor does it bound all
+information in an image: the summaries may discard topology, continuous
+centerlines, segment-to-segment pitch variation or stellar-population structure.
+The result concerns a defined representation and regression family.
+
+The physical distinction is equally useful. A rotation curve constrains the
+gravitational field through $v_c^2=R\,\partial_R\Phi$; an image measures
+projected light. Combining them requires an explicit light-to-mass calibration,
+disk geometry and independently measured velocities. Established Tully--Fisher
+methods illustrate this additional information \citep{tully1977,schombert2020}.
+In the Supplementary Material we provide a finite pressure-supported equilibrium
+calculation, derived from known lowered-isothermal models
+\citep{king1966,gieles2015}, to keep dynamical interpretations physically
+consistent. This is a separate conditional model, not a source of missing
+distance labels or a viscosity measurement from pixels.
+
+\section{Limitations and a focused route forward}
+The samples contain resolved, strongly selected nearby spirals. Human centers,
+foreground masks and classifications remain external inputs. The additional
+cohort changes sky regions within the same survey; it does not establish
+transfer to another instrument, arbitrary morphology or unresolved galaxies.
+Incomplete human regions define a reproducible annotation task, but not
+complete physical truth or a verified real arm-free negative population.
+
+Gaussian moment matching approximates the PSF and does not fully account for
+non-Gaussian wings or noise covariance. Fixed angular filters probe different
+physical scales across the sample. The finite annulus omits central and outer
+structure, while star/border guards can remove substantial areas. These choices
+are measured coverage conditions rather than proof of complete arm recovery.
+Observed width accuracy has not been validated independently.
+
+Statistical resolution is set by the 13 and 30 test groups, not the number
+of pixels. Conditional bootstrap intervals omit retraining uncertainty,
+annotation systematics and uncertainty in the selected population. The cached
+out-of-fold representation protects training descriptors from their own group,
+but the training-only choice of upstream representation is not fully nested
+within every downstream cross-validation fold. Practical margins, the stronger
+baselines and the archival comparison were introduced after initial results;
+they should guide a new study rather than be described as prospective tests.
+
+A next confirmatory study should fix its feature representation, survey
+population, practical margin and missing-data policy before examining new
+redshifts. It should include a genuine same-input comparison to mature arm
+methods, with training-overlap checks for pretrained models such as ZooBot:3D
+\citep{spindler2026}. A useful geometric extension must first pass independent
+centerline and width tests. Conditional planning from the observed group
+dispersion suggests roughly 66 independent groups for 80\% power to detect a
+true 0.001 mean gain against zero, rising to 106 under an upper-variance
+scenario. These calculations assume stable frozen models and comparable groups;
+they are not evidence that such a gain exists or a promise of sample sufficiency.
+
+\section{Conclusions}
+The three-band multiscale classifier provides a measurable improvement in
+human arm-region agreement over a matched brightness/radius baseline, and
+retains useful performance on additional sky regions. This establishes a
+practical region-analysis component for resolved spirals. Its eight regional
+summaries do not yet establish an improvement in catalog-redshift prediction;
+the original and additional grouped contrasts remain statistically inconclusive,
+including after stronger observable morphology controls. Separate centerline
+results show that geometric accuracy requires additional development and
+independent validation. The resulting framework supports careful measurement
+and calibrated inference while preserving the distinction between apparent
+structure and physical distance.
+
+\section*{Data and software availability}
+The companion source distribution at
+\url{https://github.com/nalin-dhiman/Galaxy-arm-project}
+contains the publicly available measurement code, frozen-model
+metadata, numerical result tables, figure-generation provenance and editable
+\LaTeX\ sources. Original survey products are obtained from their credited
+public archives; access and reuse follow the relevant archive terms. The
+Supplementary Material describes the output schema and reproducibility sequence.
+
+\section*{Acknowledgments}
+This work uses the DESI Legacy Imaging Surveys, SDSS-IV/MaNGA, Galaxy Zoo:3D,
+Galaxy Builder and SPARC, and acknowledges their scientific teams and volunteer
+contributors. Image credit: Legacy Surveys / D. Lang (Perimeter Institute).
+The Legacy Surveys and SDSS collaboration acknowledgment and citation pages
+are \url{https://www.legacysurvey.org/acknowledgment/} and
+\url{https://www.sdss4.org/collaboration/citing-sdss/}. Survey-specific credits
+are retained with the derived figures.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+\end{document}

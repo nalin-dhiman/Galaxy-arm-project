@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "Please cite the accompanying paper and original data sources when using this software."
+type: software
+title: "Galaxy Arm Project"
+authors:
+  - family-names: Dhiman
+    given-names: Nalin
+version: 0.3.0
+date-released: 2026-10-23
+repository-code: "https://github.com/nalin-dhiman/Galaxy-arm-project"
+url: "https://nalin-dhiman.github.io/Galaxy-arm-project/"
+abstract: "Tools for multiband galaxy structure measurements, grouped redshift comparisons and finite halo equilibria."

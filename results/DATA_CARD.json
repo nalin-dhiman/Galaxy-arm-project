@@ -1,0 +1,29 @@
+{
+  "target": "Inherited heliocentric NSA_Z catalog redshift; not geometric distance",
+  "training_galaxies": 91,
+  "calibration_galaxies": 40,
+  "original_test": {
+    "galaxies": 29,
+    "sky_groups": 13
+  },
+  "additional_primary": {
+    "galaxies": 59,
+    "sky_groups": 30
+  },
+  "additional_total": {
+    "galaxies": 99,
+    "sky_groups": 39
+  },
+  "comparison": "PGI versus PGIA; positive group-equal error reduction favors arms",
+  "new_controls": "Retrospective L5/L5A and L3/L3A; original TRAIN91 only; not exact Morpho-z reproduction",
+  "descriptors": "TRAIN arm summaries are group out-of-fold; external summaries use a fixed TRAIN-only raw classifier",
+  "missingness": "The missing-image target is retained with TRAIN-imputed predictors",
+  "surveys": "Legacy Surveys DR9 images; MaNGA DRPall DR17 observed photometry/redshifts and GZ3D annotations",
+  "catalog_sources": [
+    "https://data.sdss.org/sas/dr17/manga/spectro/redux/v3_1_1/drpall-v3_1_1.fits",
+    "https://data.galaxyzoo.org/",
+    "https://www.legacysurvey.org/"
+  ],
+  "archival_pitch": "Published Hart2017 values; different Galaxy Builder/SpArcFiRe weighting conventions; 11 missing sentinels retained",
+  "published_code": "https://github.com/nalin-dhiman/Galaxy-arm-project"
+}

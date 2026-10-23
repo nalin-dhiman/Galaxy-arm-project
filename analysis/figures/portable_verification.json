@@ -1,0 +1,59 @@
+{
+  "status": "passed_isolated_portable_replay",
+  "command": "python -I render_figures.py --output output",
+  "execution_context": "Fresh temporary folder copied from this bundle, outside the research workspace; no workspace imports or network used.",
+  "figures_rendered": 9,
+  "data_hashes_verified": true,
+  "object_arrays_prohibited": true,
+  "raster_pixel_identity_in_tested_environment": {
+    "pipeline_splits": true,
+    "arm_region_examples": true,
+    "arm_region_validation": true,
+    "grouped_redshift_effects": true,
+    "redshift_predictions": true,
+    "centerline_validation": true,
+    "finite_halo_profiles": true,
+    "btfr_validation": true,
+    "arm_consensus_sensitivity": true
+  },
+  "png_bytes_also_identical_in_tested_environment": {
+    "pipeline_splits": true,
+    "arm_region_examples": true,
+    "arm_region_validation": true,
+    "grouped_redshift_effects": true,
+    "redshift_predictions": true,
+    "centerline_validation": true,
+    "finite_halo_profiles": true,
+    "btfr_validation": true,
+    "arm_consensus_sensitivity": true
+  },
+  "text_bbox_collision_counts": {
+    "pipeline_splits": 0,
+    "arm_region_examples": 0,
+    "arm_region_validation": 0,
+    "grouped_redshift_effects": 0,
+    "redshift_predictions": 0,
+    "centerline_validation": 0,
+    "finite_halo_profiles": 0,
+    "btfr_validation": 0,
+    "arm_consensus_sensitivity": 0
+  },
+  "import_roots": [
+    "__future__",
+    "argparse",
+    "datetime",
+    "hashlib",
+    "json",
+    "matplotlib",
+    "numpy",
+    "os",
+    "pathlib",
+    "tempfile"
+  ],
+  "tested_versions": {
+    "python": "3.12.2",
+    "numpy": "1.26.4",
+    "matplotlib": "3.10.1"
+  },
+  "scope": "Display reconstruction from saved derived arrays; not model retraining, raw survey reduction or independent scientific validation. PDF timestamp/renderer differences can change file bytes."
+}

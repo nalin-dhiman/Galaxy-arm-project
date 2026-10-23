@@ -1,0 +1,22 @@
+name: Scientific checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements-repro.txt
+      - run: pip install -e . --no-deps
+      - run: python -m pytest -q
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+      - run: python analysis/reproduce_tables.py --output-dir outputs/ci_tables

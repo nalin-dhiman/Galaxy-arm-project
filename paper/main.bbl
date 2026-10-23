@@ -1,0 +1,236 @@
+\begin{thebibliography}{28}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[{Abdurro'uf} et~al.(2022){Abdurro'uf}, Accetta, Aerts,
+  et~al.]{dr172022}
+{Abdurro'uf}, Kathleen Accetta, Conny Aerts, et~al.
+\newblock The seventeenth data release of the sloan digital sky surveys:
+  Complete release of {MaNGA}, {MaStar}, and {APOGEE-2} data.
+\newblock \emph{The Astrophysical Journal Supplement Series}, 259:\penalty0 35,
+  2022.
+\newblock \doi{10.3847/1538-4365/ac4414}.
+\newblock URL \url{https://arxiv.org/abs/2112.02026}.
+
+\bibitem[Angelopoulos and Bates(2021)]{angelopoulos2021}
+Anastasios~N. Angelopoulos and Stephen Bates.
+\newblock A gentle introduction to conformal prediction and distribution-free
+  uncertainty quantification, 2021.
+\newblock URL \url{https://arxiv.org/abs/2107.07511}.
+
+\bibitem[Bundy et~al.(2015)Bundy, Bershady, Law, et~al.]{bundy2015}
+Kevin Bundy, Matthew~A. Bershady, David~R. Law, et~al.
+\newblock Overview of the {SDSS-IV MaNGA} survey: Mapping nearby galaxies at
+  apache point observatory.
+\newblock \emph{The Astrophysical Journal}, 798:\penalty0 7, 2015.
+\newblock \doi{10.1088/0004-637X/798/1/7}.
+\newblock URL \url{https://arxiv.org/abs/1412.1482}.
+
+\bibitem[Davis and Hayes(2014)]{davis2014}
+Darren~R. Davis and Wayne~B. Hayes.
+\newblock Scalable automated detection of spiral galaxy arm segments.
+\newblock \emph{The Astrophysical Journal}, 790:\penalty0 87, 2014.
+\newblock \doi{10.1088/0004-637X/790/2/87}.
+\newblock URL \url{https://arxiv.org/abs/1402.1910}.
+
+\bibitem[Dey et~al.(2019)Dey, Schlegel, Lang, et~al.]{dey2019}
+Arjun Dey, David~J. Schlegel, Dustin Lang, et~al.
+\newblock Overview of the {DESI} legacy imaging surveys.
+\newblock \emph{The Astronomical Journal}, 157:\penalty0 168, 2019.
+\newblock \doi{10.3847/1538-3881/ab089d}.
+\newblock URL \url{https://arxiv.org/abs/1804.08657}.
+
+\bibitem[Efron(1979)]{efron1979}
+Bradley Efron.
+\newblock Bootstrap methods: Another look at the jackknife.
+\newblock \emph{The Annals of Statistics}, 7:\penalty0 1--26, 1979.
+\newblock \doi{10.1214/aos/1176344552}.
+\newblock URL \url{https://doi.org/10.1214/aos/1176344552}.
+
+\bibitem[Frangi et~al.(1998)Frangi, Niessen, Vincken, and
+  Viergever]{frangi1998}
+Alejandro~F. Frangi, Wiro~J. Niessen, Koen~L. Vincken, and Max~A. Viergever.
+\newblock Multiscale vessel enhancement filtering.
+\newblock In \emph{Medical Image Computing and Computer-Assisted
+  Intervention---MICCAI'98}, volume 1496 of \emph{Lecture Notes in Computer
+  Science}, pages 130--137, 1998.
+\newblock \doi{10.1007/BFb0056195}.
+\newblock URL \url{https://link.springer.com/chapter/10.1007/BFb0056195}.
+
+\bibitem[Geurts et~al.(2006)Geurts, Ernst, and Wehenkel]{geurts2006}
+Pierre Geurts, Damien Ernst, and Louis Wehenkel.
+\newblock Extremely randomized trees.
+\newblock \emph{Machine Learning}, 63:\penalty0 3--42, 2006.
+\newblock \doi{10.1007/s10994-006-6226-1}.
+\newblock URL
+  \url{https://link.springer.com/article/10.1007/s10994-006-6226-1}.
+
+\bibitem[Gieles and Zocchi(2015)]{gieles2015}
+Mark Gieles and Alice Zocchi.
+\newblock A family of lowered isothermal models.
+\newblock \emph{Monthly Notices of the Royal Astronomical Society},
+  454:\penalty0 576--592, 2015.
+\newblock \doi{10.1093/mnras/stv1848}.
+\newblock URL \url{https://arxiv.org/abs/1508.02120}.
+
+\bibitem[Hart et~al.(2017)Hart, Bamford, Hayes, et~al.]{hart2017}
+Ross~E. Hart, Steven~P. Bamford, Wayne~B. Hayes, et~al.
+\newblock Galaxy zoo and {SpArcFiRe}: constraints on spiral arm formation
+  mechanisms from spiral arm number and pitch angles.
+\newblock \emph{Monthly Notices of the Royal Astronomical Society},
+  472:\penalty0 2263--2279, 2017.
+\newblock \doi{10.1093/mnras/stx2137}.
+\newblock URL \url{https://arxiv.org/abs/1708.04628}.
+
+\bibitem[Hogg(1999)]{hogg1999}
+David~W. Hogg.
+\newblock Distance measures in cosmology, 1999.
+\newblock URL \url{https://arxiv.org/abs/astro-ph/9905116}.
+
+\bibitem[King(1966)]{king1966}
+Ivan~R. King.
+\newblock The structure of star clusters. {III}. some simple dynamical models.
+\newblock \emph{The Astronomical Journal}, 71:\penalty0 64--75, 1966.
+\newblock \doi{10.1086/109857}.
+\newblock URL
+  \url{https://articles.adsabs.harvard.edu/pdf/1966AJ.....71...64K}.
+
+\bibitem[Lei et~al.(2018)Lei, G'Sell, Rinaldo, Tibshirani, and
+  Wasserman]{lei2018}
+Jing Lei, Max G'Sell, Alessandro Rinaldo, Ryan~J. Tibshirani, and Larry
+  Wasserman.
+\newblock Distribution-free predictive inference for regression.
+\newblock \emph{Journal of the American Statistical Association}, 113:\penalty0
+  1094--1111, 2018.
+\newblock \doi{10.1080/01621459.2017.1307116}.
+\newblock URL \url{https://arxiv.org/abs/1604.04173}.
+
+\bibitem[Lindeberg(1998)]{lindeberg1998}
+Tony Lindeberg.
+\newblock Feature detection with automatic scale selection.
+\newblock \emph{International Journal of Computer Vision}, 30:\penalty0
+  79--116, 1998.
+\newblock \doi{10.1023/A:1008045108935}.
+\newblock URL \url{https://link.springer.com/article/10.1023/A:1008045108935}.
+
+\bibitem[Lingard et~al.(2021)Lingard, Masters, Krawczyk, et~al.]{lingard2021}
+Timothy Lingard, Karen~L. Masters, Coleman Krawczyk, et~al.
+\newblock Galaxy zoo builder: Morphological dependence of spiral galaxy pitch
+  angle.
+\newblock \emph{Monthly Notices of the Royal Astronomical Society},
+  504:\penalty0 3364--3374, 2021.
+\newblock \doi{10.1093/mnras/stab1072}.
+\newblock URL \url{https://arxiv.org/abs/2105.04500}.
+
+\bibitem[Lingard et~al.(2020)Lingard, Masters, Krawczyk, et~al.]{lingard2020}
+Timothy~K. Lingard, Karen~L. Masters, Coleman Krawczyk, et~al.
+\newblock Galaxy zoo builder: Four component photometric decomposition of
+  spiral galaxies guided by citizen science.
+\newblock \emph{The Astrophysical Journal}, 900:\penalty0 178, 2020.
+\newblock \doi{10.3847/1538-4357/ab9d83}.
+\newblock URL \url{https://arxiv.org/abs/2006.10450}.
+
+\bibitem[Masters et~al.(2021)Masters, Krawczyk, Shamsi, et~al.]{masters2021}
+Karen~L. Masters, Coleman Krawczyk, Shoaib Shamsi, et~al.
+\newblock Galaxy zoo: {3D}---crowdsourced bar, spiral, and foreground star
+  masks for {MaNGA} target galaxies.
+\newblock \emph{Monthly Notices of the Royal Astronomical Society},
+  507:\penalty0 3923--3935, 2021.
+\newblock \doi{10.1093/mnras/stab2282}.
+\newblock URL \url{https://arxiv.org/abs/2108.02065}.
+
+\bibitem[Pasquet et~al.(2019)Pasquet, Bertin, Treyer, Arnouts, and
+  Fouchez]{pasquet2019}
+Johanna Pasquet, Emmanuel Bertin, Marie Treyer, St{\'e}phane Arnouts, and
+  Dominique Fouchez.
+\newblock Photometric redshifts from {SDSS} images using a convolutional neural
+  network.
+\newblock \emph{Astronomy and Astrophysics}, 621:\penalty0 A26, 2019.
+\newblock \doi{10.1051/0004-6361/201833617}.
+\newblock URL \url{https://arxiv.org/abs/1806.06607}.
+
+\bibitem[Pedregosa et~al.(2011)Pedregosa, Varoquaux, Gramfort,
+  et~al.]{pedregosa2011}
+Fabian Pedregosa, Ga{\"e}l Varoquaux, Alexandre Gramfort, et~al.
+\newblock Scikit-learn: Machine learning in python.
+\newblock \emph{Journal of Machine Learning Research}, 12:\penalty0 2825--2830,
+  2011.
+\newblock URL \url{https://jmlr.org/papers/v12/pedregosa11a.html}.
+
+\bibitem[Platt(2000)]{platt1999}
+John~C. Platt.
+\newblock Probabilities for {SV} machines.
+\newblock In Alexander~J. Smola, Peter~L. Bartlett, Bernhard Sch{\"o}lkopf, and
+  Dale Schuurmans, editors, \emph{Advances in Large-Margin Classifiers}, pages
+  61--74. MIT Press, 2000.
+\newblock \doi{10.7551/mitpress/1113.003.0008}.
+\newblock URL \url{https://doi.org/10.7551/mitpress/1113.003.0008}.
+
+\bibitem[Roberts et~al.(2017)Roberts, Bahn, Ciuti, et~al.]{roberts2017}
+David~R. Roberts, Volker Bahn, Simone Ciuti, et~al.
+\newblock Cross-validation strategies for data with temporal, spatial,
+  hierarchical, or phylogenetic structure.
+\newblock \emph{Ecography}, 40:\penalty0 913--929, 2017.
+\newblock \doi{10.1111/ecog.02881}.
+\newblock URL \url{https://doi.org/10.1111/ecog.02881}.
+
+\bibitem[Schombert et~al.(2020)Schombert, McGaugh, and Lelli]{schombert2020}
+James Schombert, Stacy McGaugh, and Federico Lelli.
+\newblock Using the baryonic tully--fisher relation to measure {$H_0$}.
+\newblock \emph{The Astronomical Journal}, 160:\penalty0 71, 2020.
+\newblock \doi{10.3847/1538-3881/ab9d88}.
+\newblock URL \url{https://arxiv.org/abs/2006.08615}.
+
+\bibitem[Soo et~al.(2018)Soo, Moraes, Joachimi, et~al.]{soo2018}
+John Y.~H. Soo, Bruno Moraes, Benjamin Joachimi, et~al.
+\newblock Morpho-z: improving photometric redshifts with galaxy morphology.
+\newblock \emph{Monthly Notices of the Royal Astronomical Society},
+  475:\penalty0 3613--3632, 2018.
+\newblock \doi{10.1093/mnras/stx3201}.
+\newblock URL \url{https://arxiv.org/abs/1707.03169}.
+
+\bibitem[Spindler et~al.(2026)Spindler, Walmsley, Masters, G{\'e}ron, Garland,
+  Simmons, and Popp]{spindler2026}
+Ashley Spindler, Mike Walmsley, Karen~L. Masters, Tobias G{\'e}ron, Izzy~L.
+  Garland, B.~D. Simmons, and J{\"u}rgen~J. Popp.
+\newblock Deep learning segmentation of spiral arms and bars for 600,000
+  galaxies in {DESI}, 2026.
+\newblock URL \url{https://arxiv.org/abs/2606.16507}.
+\newblock Preprint.
+
+\bibitem[Tibshirani et~al.(2019)Tibshirani, Barber, Cand{\`e}s, and
+  Ramdas]{tibshirani2019}
+Ryan~J. Tibshirani, Rina~Foygel Barber, Emmanuel~J. Cand{\`e}s, and Aaditya
+  Ramdas.
+\newblock Conformal prediction under covariate shift.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~32, 2019.
+\newblock URL \url{https://arxiv.org/abs/1904.06019}.
+
+\bibitem[Tully and Fisher(1977)]{tully1977}
+R.~Brent Tully and J.~Richard Fisher.
+\newblock A new method of determining distances to galaxies.
+\newblock \emph{Astronomy and Astrophysics}, 54:\penalty0 661--673, 1977.
+\newblock URL
+  \url{https://articles.adsabs.harvard.edu/pdf/1977A%26A....54..661T}.
+
+\bibitem[Willett et~al.(2013)Willett, Lintott, Bamford, et~al.]{willett2013}
+Kyle~W. Willett, Chris~J. Lintott, Steven~P. Bamford, et~al.
+\newblock Galaxy zoo 2: detailed morphological classifications for 304,122
+  galaxies from the sloan digital sky survey.
+\newblock \emph{Monthly Notices of the Royal Astronomical Society},
+  435:\penalty0 2835--2860, 2013.
+\newblock \doi{10.1093/mnras/stt1458}.
+\newblock URL \url{https://arxiv.org/abs/1308.3496}.
+
+\bibitem[York et~al.(2000)York, Adelman, Anderson, et~al.]{york2000}
+Donald~G. York, J.~Adelman, John~E. Anderson, et~al.
+\newblock The sloan digital sky survey: Technical summary.
+\newblock \emph{The Astronomical Journal}, 120:\penalty0 1579--1587, 2000.
+\newblock \doi{10.1086/301513}.
+\newblock URL \url{https://arxiv.org/abs/astro-ph/0006396}.
+
+\end{thebibliography}

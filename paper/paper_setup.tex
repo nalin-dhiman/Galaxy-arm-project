@@ -1,0 +1,22 @@
+\usepackage[a4paper,margin=22mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,bm,booktabs,array,longtable,graphicx}
+\usepackage{natbib,caption,subcaption,xcolor,hyperref,placeins}
+\hypersetup{colorlinks=true,linkcolor=blue!55!black,citecolor=blue!55!black,urlcolor=blue!55!black}
+\setlength{\emergencystretch}{2em}
+\setlength{\parskip}{0.25em}
+\setlength{\parindent}{1em}
+\renewcommand{\topfraction}{.92}
+\renewcommand{\bottomfraction}{.85}
+\renewcommand{\textfraction}{.07}
+\renewcommand{\floatpagefraction}{.65}
+\captionsetup{font=small,labelfont=bf}
+\newcommand{\kms}{\mathrm{km\,s^{-1}}}
+\newcommand{\Msol}{\mathrm{M}_{\odot}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\ind}{\mathbf{1}}
+\newcommand{\figfile}[2]{\IfFileExists{figures/#1.pdf}{\includegraphics[width=#2\linewidth]{figures/#1.pdf}}{\fbox{\parbox[c][35mm][c]{.88\linewidth}{\centering Figure #1}}}}
+\newcommand{\tallfigfile}[1]{\IfFileExists{figures/#1.pdf}{\includegraphics[width=\linewidth,height=.72\textheight,keepaspectratio]{figures/#1.pdf}}{\figfile{#1}{.94}}}
+\input{author.tex}

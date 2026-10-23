@@ -1,0 +1,122 @@
+{
+  "generated_at_utc": "2026-10-23T14:18:07.888750+00:00",
+  "figures": [
+    {
+      "name": "pipeline_splits",
+      "scope": "main",
+      "pdf": "output/pipeline_splits.pdf",
+      "png": "output/pipeline_splits.png",
+      "caption": "Data separation and conditional inference. The original 160 selected resolved spirals occupy 64 nonoverlapping ten-degree sky groups, split into 91 training, 40 calibration and 29 test galaxies. The separate fresh population cohort has 99 identities in 39 previously unused groups; its prespecified primary strong-spiral stratum contains 59 galaxies in 30 groups. Frozen image classifiers use native grz science, inverse variance, local PSFs and supplied human center/foreground marks. Human arm polygons are evaluation references and never redshift predictors. The 99-object cohort is a same-survey spatial/population validation, not an independent telescope survey.",
+      "credits": "Original analysis and visualization",
+      "source_urls": [],
+      "fixed_example_ids": []
+    },
+    {
+      "name": "arm_region_examples",
+      "scope": "main",
+      "pdf": "output/arm_region_examples.pdf",
+      "png": "output/arm_region_examples.png",
+      "caption": "Fixed galaxy examples from the pre-scoring gallery: the first two strong spirals, first weak/bar-proxy object and first unasked control. Left: an asinh grz display made from native DR9 science planes. Middle: the frozen TRAIN-only branch's raw classifier score, without probability calibration. Right: independently supplied regions with at least three Galaxy Zoo 3D votes, mapped through celestial WCS. Gray denotes pixels outside the common analysis/reference footprint or excluded foreground regions. White denotes valid unmarked reference pixels, not established physical negatives. No spatial task means unknown truth, not a negative label; the first object's lack of a two-class consensus is retained. Native local PSFs and variance maps are used by the frozen reader, and the science images are not homogenized for display. Scores indicate annotation agreement under a selected population, not physical arm certainty. Visible image credit: Legacy Surveys / D. Lang (Perimeter Institute); human annotations: SDSS-IV and Galaxy Zoo 3D volunteers.",
+      "credits": "Legacy Surveys / D. Lang (Perimeter Institute); SDSS-IV / Galaxy Zoo 3D volunteers; original derived score visualization",
+      "source_urls": [
+        "https://www.legacysurvey.org/acknowledgment/",
+        "https://www.sdss4.org/dr17/manga/manga-data/manga-gz3d/",
+        "https://arxiv.org/abs/2108.02065"
+      ],
+      "fixed_example_ids": [
+        "1-120750",
+        "1-460912",
+        "1-31587",
+        "1-156154"
+      ]
+    },
+    {
+      "name": "arm_region_validation",
+      "scope": "main",
+      "pdf": "output/arm_region_validation.pdf",
+      "png": "output/arm_region_validation.png",
+      "caption": "Arm-region agreement and baseline control. (a) On the original 29-galaxy test in 13 sky groups, paired differences against g brightness, a circular radial profile and the training-selected learned brightness/radius baseline average sky-group means equally; bars are the archived 95 percent whole-group bootstrap intervals. This estimand differs from the ordinary galaxy-macro AP difference. (b) In the fresh same-survey cohort, AP is averaged over galaxies, with whole-sky-group bootstrap uncertainty. Strong spirals give AP 0.689 on 57 evaluable objects (58 images from 59 fixed identities), weak/low-bar objects 0.453 on 10 and weak/bar-proxy objects 0.628 on 12. Sixteen unasked controls have no AP ground truth. Human vote regions are incomplete projected annotations, not exact physical-arm truth.",
+      "credits": "Original analysis and visualization",
+      "source_urls": [],
+      "fixed_example_ids": []
+    },
+    {
+      "name": "grouped_redshift_effects",
+      "scope": "main",
+      "pdf": "output/grouped_redshift_effects.pdf",
+      "png": "output/grouped_redshift_effects.png",
+      "caption": "Incremental arm information in redshift prediction, with positive values favoring arm summaries. Each galaxy's paired absolute-error difference is averaged within its sky group and groups receive equal weight. (a) Frozen PGI versus PGIA gives -0.000471, 95 percent interval [-0.001391, 0.000367], on the original 29 galaxies/13 groups; the fresh 59/30 result is 0.000440 [-0.000555, 0.001452]. Cohorts are not pooled. (b) New literature-motivated controls fit only the original 91 training galaxies at fixed estimator settings, adding angular radius, axis ratio, observed surface brightness and Sersic n before testing raw arm summaries. The ugriz and explicit-grz gains are 0.000584 [-0.000331, 0.001658] and 0.000142 [-0.000802, 0.001195]. These added comparisons are retrospective and exploratory, not exact reproductions of the published Morpho-z pipeline. Shading is an explicitly retrospective practical margin, not demonstrated equivalence. All intervals use 100000 whole-group bootstrap draws.",
+      "credits": "Original analysis and visualization",
+      "source_urls": [],
+      "fixed_example_ids": []
+    },
+    {
+      "name": "redshift_predictions",
+      "scope": "main",
+      "pdf": "output/redshift_predictions.pdf",
+      "png": "output/redshift_predictions.png",
+      "caption": "Frozen predictions and absolute-error empirical distributions for all 59 fixed fresh strong-spiral identities, including the single imputed missing-image row (open black outline). No input-support screening removes points from these primary displays. Galaxy-weighted MAE(z) is 0.01277 for PGI and 0.01253 for PGIA; these point summaries differ from the equal-sky-group paired estimand in the contrast figure. The target is inherited heliocentric NSA catalogue redshift, not an independently measured geometric distance. No universal morphology gain or distance-coverage claim follows.",
+      "credits": "Original analysis and visualization",
+      "source_urls": [],
+      "fixed_example_ids": []
+    },
+    {
+      "name": "centerline_validation",
+      "scope": "main",
+      "pdf": "output/centerline_validation.pdf",
+      "png": "output/centerline_validation.png",
+      "caption": "The first two fixed held-out Galaxy Builder subjects illustrate genuine centerline validation. Cyan curves are author-clustered/cleaned and logarithmically fitted human freehand centerlines; orange dashed curves are a separate fixed image-only template prototype. Human disk center, orientation and inclination are supplied. Coordinates use the native 0.396 arcsec sampling of normalized SDSS r images; no celestial WCS or absolute photometric calibration is claimed. Across all 12 held-out galaxies, localization F1 is 0.223, with whole-galaxy bootstrap interval [0.105, 0.353]. Only 7 of 70 candidate segments match the 19 reference segments spatially; matched-only median pitch error is 11.42 degrees. The prototype fails its prespecified acceptance target. References are independent of the extractor but contain human and logarithmic-fit uncertainty; the fresh-object exclusion does not ensure disjoint sky fields.",
+      "credits": "SDSS; Galaxy Builder volunteers; Lingard et al. 2020/2021; original derived template visualization",
+      "source_urls": [
+        "https://data.galaxyzoo.org/",
+        "https://arxiv.org/abs/2006.10450",
+        "https://arxiv.org/abs/2105.04500",
+        "https://github.com/tingard/hierarchical-modelling-of-spiral-pitch-angle"
+      ],
+      "fixed_example_ids": [
+        "21096863",
+        "21096986"
+      ]
+    },
+    {
+      "name": "finite_halo_profiles",
+      "scope": "supplement",
+      "pdf": "output/finite_halo_profiles.pdf",
+      "png": "output/finite_halo_profiles.png",
+      "caption": "A supplied-parameter equilibrium illustrates the lowered-isothermal closure: central halo density 3e7 solar masses per cubic kpc, distribution velocity scale 100 km/s, central binding W0=5, and a Miyamoto-Nagai baryonic component with mass 1e10 solar masses, a=2 kpc and b=0.4 kpc. Density and pressure vanish at the same physical free surface; the numerical sphere extends through vacuum. Local one-dimensional dispersion is sqrt(P/rho), not the distribution scale. The rotation curve is a forward prediction from these stated physical parameters, not a fitted distance ruler. This established ergodic equilibrium can also be collisionless; static moments identify no viscosity or dark interaction rate. Curves are evaluated with the archived validation resolution, without refitting observed galaxies.",
+      "credits": "Original analysis and visualization",
+      "source_urls": [],
+      "fixed_example_ids": []
+    },
+    {
+      "name": "btfr_validation",
+      "scope": "supplement",
+      "pdf": "output/btfr_validation.pdf",
+      "png": "output/btfr_validation.png",
+      "caption": "Conditional baryonic Tully-Fisher leave-one-galaxy-out distance checks on the same 30 local calibrators. Each point is predicted from 29 others using measured HI flat speed and a calibrated baryonic-flux proxy; horizontal error bars show reference-distance uncertainty and vertical bars are 90 percent model intervals, not independently calibrated coverage guarantees. Median absolute fractional error is 17.9 percent, reference-point coverage 27/30, and median interval width is 82.2 percent of predicted distance. Two speed extrapolations are retained and marked. Shared anchor systematics, sample selection and common mass-to-light assumptions remain unmodeled. These are kinematic calibration checks, not image-only or viscosity-based distances.",
+      "credits": "SPARC/Lelli et al. published data; original derived uncertainty analysis",
+      "source_urls": [
+        "https://astroweb.case.edu/SPARC/",
+        "https://astroweb.case.edu/SPARC/BTFR_Lelli2019.mrt"
+      ],
+      "fixed_example_ids": []
+    },
+    {
+      "name": "arm_consensus_sensitivity",
+      "scope": "supplement",
+      "pdf": "output/arm_consensus_sensitivity.pdf",
+      "png": "output/arm_consensus_sensitivity.png",
+      "caption": "Sensitivity to incomplete arm references and unknown controls. (a) On the fresh strong cohort, the fixed classifier's macro AP is 0.689 on 57 evaluable galaxies at the prespecified three-vote consensus and 0.487 on 53 at five votes. The evaluated reference prevalence and set of galaxies change, so this is a reference-definition sensitivity, not directly comparable independent accuracy experiments. (b) Candidate-area medians at the frozen displayed threshold are descriptive. Sixteen unasked controls have no spatial arm truth; nonzero occupancy in them cannot establish a measured real-survey false-positive rate. All fixed identities, reference failures and coverage gaps remain recorded.",
+      "credits": "Original analysis and visualization",
+      "source_urls": [],
+      "fixed_example_ids": []
+    }
+  ],
+  "source_inputs_verified_unchanged": true,
+  "source_input_count": 30,
+  "reconstruction_scope": "Read-only presentation of frozen scientific results; no fitting or outcome-based selection",
+  "builder": "render_figures.py",
+  "plot_arrays": "publication_plot_data.npz",
+  "plot_statistics": "publication_plot_data.json",
+  "data_scope": "Compact derived plot arrays only; renderer does not reconstruct raw-data processing or model training."
+}

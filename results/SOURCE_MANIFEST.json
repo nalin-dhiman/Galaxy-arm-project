@@ -1,0 +1,564 @@
+{
+  "files": [
+    {
+      "path": "examples/data/center.json",
+      "sha256": "8bd87345977c0e964401168a51a17b8c9a62af499e25151aa69e021d41207bd1",
+      "bytes": 281
+    },
+    {
+      "path": "examples/data/foreground_mask.fits",
+      "sha256": "068695ba838d07cd364ca90e46fae91912c32ea876302715685eb5b372127b06",
+      "bytes": 69120
+    },
+    {
+      "path": "examples/data/galaxy_grz.fits",
+      "sha256": "480aeeb02b75e2fee2f688feccc0a1965f14c40bba5cf9a9516b71959b561867",
+      "bytes": 1609920
+    },
+    {
+      "path": "examples/data/galaxy_psf.fits",
+      "sha256": "ab8e92fb5b3bc8d078466aea20588e24671fa13e87f2d374700f8441c7ad78ef",
+      "bytes": 37440
+    },
+    {
+      "path": "examples/data/observed_photometry.csv",
+      "sha256": "533dee0b9672451793ee4dec1de9e9dd74a74be2301ed2449ca9f3a982cf8cf7",
+      "bytes": 274
+    },
+    {
+      "path": "experiments/acquire_arm_annotations.py",
+      "sha256": "6f5f48181bc0b8f62873a61d990a9c06ff6b3c9ebf2f5f12219c51d150adf9f0",
+      "bytes": 9680
+    },
+    {
+      "path": "experiments/acquire_catalog.py",
+      "sha256": "0a9769188eaa98047fe15f731558c29ed4b6aa164cf5d369e1755c4c5fd646c1",
+      "bytes": 1589
+    },
+    {
+      "path": "experiments/acquire_filter_images.py",
+      "sha256": "eeaf3ac33eb40dca33f8ffded497983977afd6837b7bb20732597eb2f9838e51",
+      "bytes": 13735
+    },
+    {
+      "path": "experiments/acquire_geometry_reference.py",
+      "sha256": "cfecba2abc887f73ab2b546b9d6518808653e03fdafc0483a207d0d898c947e1",
+      "bytes": 5517
+    },
+    {
+      "path": "experiments/acquire_images.py",
+      "sha256": "05eda9b5cb17e6967796eca2c75df94cf2098c61437b7583df8f197c55c3c3b7",
+      "bytes": 4920
+    },
+    {
+      "path": "experiments/acquire_next_external.py",
+      "sha256": "75d3d4bb0c7c0f032ad03f952f4b1314b51b0e555abd7758d124dedfa408a458",
+      "bytes": 13598
+    },
+    {
+      "path": "experiments/acquire_next_kinematics.py",
+      "sha256": "edfcc77c8599e3c59689bffa789707217313e52abf2096b8d0c5e6494b2deada",
+      "bytes": 3428
+    },
+    {
+      "path": "experiments/acquire_solid_sample.py",
+      "sha256": "609859e9cded83dfac97038a1efa6064558cd8f09639f087a6131b23879242fb",
+      "bytes": 32618
+    },
+    {
+      "path": "experiments/arm_distance_experiment.py",
+      "sha256": "189372d1800d16fde40f6eeb93cb4a169db60b3c0f97b2696e80a9f8d7a1d05f",
+      "bytes": 14487
+    },
+    {
+      "path": "experiments/arm_specificity_diagnostic.py",
+      "sha256": "9e358dcb80f2b22a7d897e1097a81d8a9fa0b5d6b1eb2dbb567ee0721c7885bb",
+      "bytes": 14632
+    },
+    {
+      "path": "experiments/audit_public_native_reader.py",
+      "sha256": "98f4e1826d2343299fb34ba0a7df78d1b6854e265ef92b7c2682589c1457bf06",
+      "bytes": 7222
+    },
+    {
+      "path": "experiments/axisymmetric_fluid_experiment.py",
+      "sha256": "9306d5b8f066bdce028c50f5b02e9eeaa27ad2904a581bf0b1ab118cd8c9b4a3",
+      "bytes": 17047
+    },
+    {
+      "path": "experiments/btfr_distance_experiment.py",
+      "sha256": "f3d3d8376ae588a6c26638a3790412536b2b1571ad151ae783d24de3027f2bf1",
+      "bytes": 8044
+    },
+    {
+      "path": "experiments/coupled_fluid_experiment.py",
+      "sha256": "a0b7829231e98953607d0c8d58786ea39e7c687eb7cdc95a67bd91869562d7b1",
+      "bytes": 22748
+    },
+    {
+      "path": "experiments/distance_experiment.py",
+      "sha256": "0f7eb145b24d88945095928a3baff4235a280747ba30f7d83a64458d7e0c7158",
+      "bytes": 10340
+    },
+    {
+      "path": "experiments/dynamics_experiment.py",
+      "sha256": "843333e471086dc5b72fed3186cec3ae03511084e705237fc6e5b6284ba821cd",
+      "bytes": 32217
+    },
+    {
+      "path": "experiments/evaluate_next_external.py",
+      "sha256": "8e9841b37cdf1fea09fabadf4e2cf519cd494ca5c824b8cf10dcd91ee480a3a2",
+      "bytes": 28039
+    },
+    {
+      "path": "experiments/filter_synthetic_experiment.py",
+      "sha256": "0a43a313e87f8c3fdaf0b5bf278030c7f6767c710ea603eecae978286ff646f8",
+      "bytes": 11861
+    },
+    {
+      "path": "experiments/finite_fluid_experiment.py",
+      "sha256": "8fc610c656946c7187c94bb6c3302f590132a36f596f8f10278ed9a040147054",
+      "bytes": 23217
+    },
+    {
+      "path": "experiments/geometry_source_reader.py",
+      "sha256": "10beb71ccb9a46d0df0d3991f5642278f56aa9aa23b918c27ebcdc473967e7fd",
+      "bytes": 1971
+    },
+    {
+      "path": "experiments/geometry_synthetic_stress.py",
+      "sha256": "5c52a230d9f6166f00c3e633367797f943c4581b0df89eb9acf194d9299501ca",
+      "bytes": 5666
+    },
+    {
+      "path": "experiments/independent_filter_experiment.py",
+      "sha256": "b4352d8f1e4937dd48528e6f559c91fb419ae9bc4cb6c40c0bc1572db3fc53d3",
+      "bytes": 25404
+    },
+    {
+      "path": "experiments/learned_distance_experiment.py",
+      "sha256": "5011824aa3fec77c386e6bb7a1130ff13842ccb4ff3b55ba4f4e74db2a09c5f6",
+      "bytes": 16042
+    },
+    {
+      "path": "experiments/morphology_experiment.py",
+      "sha256": "538cd6a09b82787b8db97510a02dac2c538eb1fcb19120fbc5a1ca9aceae644e",
+      "bytes": 19589
+    },
+    {
+      "path": "experiments/next_btfr_experiment.py",
+      "sha256": "639501bda7c8e33ac75a0f22a2f2c33a6ed1c583f37309a727b9e554dc67af9b",
+      "bytes": 10973
+    },
+    {
+      "path": "experiments/next_btfr_matched_width_audit.py",
+      "sha256": "abe59fa0088f983acb444643443f21f1228ed2f368b40745faa975e41691ed71",
+      "bytes": 2303
+    },
+    {
+      "path": "experiments/next_btfr_zeropoint_sensitivity.py",
+      "sha256": "bbd8da3d509d8f5dd355c1d6c6c00fbce8c4a62fbfd3485b8204caac0b47c23f",
+      "bytes": 1501
+    },
+    {
+      "path": "experiments/next_geometry_experiment.py",
+      "sha256": "d1a23cb82784cda509763db6265cc791b42db099a061191584261bc588724451",
+      "bytes": 11793
+    },
+    {
+      "path": "experiments/next_integration_checks.py",
+      "sha256": "7be6eab8920abcf2ab36711756bfb63cb2d10c3fedfe5a1e8a2b254f5f0df0fd",
+      "bytes": 8219
+    },
+    {
+      "path": "experiments/next_kinematics_experiment.py",
+      "sha256": "197e95c50b8fd81fb040a011b4ae63a4c5e4599540acfdde251392b62f27fca6",
+      "bytes": 2574
+    },
+    {
+      "path": "experiments/psf_matching_diagnostic.py",
+      "sha256": "9f7ad744514faf8701ce18ee4180d6a12a1cebedcb9c038b7cc6d8838d77abd0",
+      "bytes": 9169
+    },
+    {
+      "path": "experiments/sample_image_features.py",
+      "sha256": "70aca02d3aff89c9d787261d73a50543c389cbd99f842562d9405715d1e4d41f",
+      "bytes": 18024
+    },
+    {
+      "path": "experiments/supervised_arm_experiment.py",
+      "sha256": "93563c5e957ef8c64e1a740b15913dacc3c9b0275ff09c43b27332827cf90773",
+      "bytes": 42401
+    },
+    {
+      "path": "experiments/validate_dynamics.py",
+      "sha256": "44213564589119d5c48fc9a2bbde9a2b38a669980d2e3f5fd043b82f5dccee74",
+      "bytes": 4429
+    },
+    {
+      "path": "galaxy_lab/__init__.py",
+      "sha256": "c1c13907f68b2a0f278af451ab694c4204216d74e1dee715317baa1efe963972",
+      "bytes": 103
+    },
+    {
+      "path": "galaxy_lab/__main__.py",
+      "sha256": "72e69b7919bb9bdbd719de0bfad6a134c4fae674318a132c2cb51e86969bf530",
+      "bytes": 21587
+    },
+    {
+      "path": "galaxy_lab/arm_geometry.py",
+      "sha256": "2e7c49f442911bc2ce5dbd143ce1d6ed11c61ed2a8d0f961be31a586f0d301f3",
+      "bytes": 12192
+    },
+    {
+      "path": "galaxy_lab/axisymmetric_fluid.py",
+      "sha256": "c43a23ed8e4fd02540074976a4a7ead11e6db50aad5714b57e441917f95d6fe8",
+      "bytes": 12563
+    },
+    {
+      "path": "galaxy_lab/coupled_fluid.py",
+      "sha256": "82ec5cca54049d0df5579e3aed0a3b39c12c86f9a40eb7fc6c7a0a6fd1840b8c",
+      "bytes": 8146
+    },
+    {
+      "path": "galaxy_lab/distance.py",
+      "sha256": "6c75f7c0974b5282074cb4b0ef3f5486698b19951241752a0b594b55cac62251",
+      "bytes": 18515
+    },
+    {
+      "path": "galaxy_lab/erroraware_btfr.py",
+      "sha256": "899101cd36c16451634d7238ec0aeb05455dd0c503e17e89bc3aaaa1cff1ad96",
+      "bytes": 7246
+    },
+    {
+      "path": "galaxy_lab/filtering.py",
+      "sha256": "80a7beb85f9edc51c8cd92e027ef7a31778fcf3366a231557883bc8613f9211c",
+      "bytes": 27031
+    },
+    {
+      "path": "galaxy_lab/finite_fluid.py",
+      "sha256": "0c9c1747bcdcfe694a9802c2cb96209ec7e7241979eb664ae629c1cb546e8af4",
+      "bytes": 16078
+    },
+    {
+      "path": "galaxy_lab/fluid.py",
+      "sha256": "d8d789044ae8a6b6d16575ebb80de0751d334c5b3c0ac4e2243493b90d96ee1e",
+      "bytes": 10631
+    },
+    {
+      "path": "galaxy_lab/kinematic_distance.py",
+      "sha256": "0bfe5652652661853ac9207b18f075c1b54cb9e4391a573c96e52bec1ce00794",
+      "bytes": 3223
+    },
+    {
+      "path": "galaxy_lab/kinematic_workbench.py",
+      "sha256": "a2d54bb6f4f6ae83a4627362fd097f19338c6a1c9e0e4cad884ba61cb7a24227",
+      "bytes": 9489
+    },
+    {
+      "path": "galaxy_lab/morphology.py",
+      "sha256": "b3e12020660ceeff3303f4672c5794189b60aa010058b29faadc197b1155b353",
+      "bytes": 21061
+    },
+    {
+      "path": "galaxy_lab/native.py",
+      "sha256": "9a68d3d812943b8bb69aea169881cd213d9f2613e51d614a64c1cdc7f891b1ae",
+      "bytes": 10647
+    },
+    {
+      "path": "galaxy_lab/redshift.py",
+      "sha256": "817e741ccc2b4b2d7fae9637f65d7dd973defc6df46bb56680812a596fd0721f",
+      "bytes": 9032
+    },
+    {
+      "path": "galaxy_lab/release_guard.py",
+      "sha256": "82abdf6281e83a9e1f6f65f05cfa9b7f95a50f5eec560eb7ddfd5a3da017f9b9",
+      "bytes": 4408
+    },
+    {
+      "path": "galaxy_lab/segmentation.py",
+      "sha256": "d82ad53a1445e042b74bcb2ed16ab30b0936427c2bef2b3d66842c5c571c5904",
+      "bytes": 13857
+    },
+    {
+      "path": "galaxy_lab/spectral_kinematics.py",
+      "sha256": "5b4d3f05c2aae7116e2baf2fa1c9c041ec079fb8d4c6056e4d74978b48801586",
+      "bytes": 7893
+    },
+    {
+      "path": "galaxy_lab/workbench.py",
+      "sha256": "4ab20c2d56ded113e51eefd3e956f118d2a67e1b65c0f0622ee2259074ff5834",
+      "bytes": 10664
+    },
+    {
+      "path": "models/arms/arm_model.joblib",
+      "sha256": "061a65ab4a90851696e019b4c977753d7e4e0e590f1714d19bddc0872a14643b",
+      "bytes": 3042798
+    },
+    {
+      "path": "models/arms/distance_feature_arm_model.joblib",
+      "sha256": "2fcf8bde0a6b0978b309039c183f51cd8c67a84ff06c5d93a4b1be6ef282badc",
+      "bytes": 3042255
+    },
+    {
+      "path": "models/controls/L3A_exploratory.joblib",
+      "sha256": "6f9ae7611cb4eb0e50b8fd461f77195636d7edb912c2fa996595f655803dd7e9",
+      "bytes": 114782
+    },
+    {
+      "path": "models/controls/L3A_model_card.json",
+      "sha256": "83c64c77cb877faad3dff6913aedbfd6c20a22e214c016c03e7bc43d108422d2",
+      "bytes": 3607
+    },
+    {
+      "path": "models/controls/L3_exploratory.joblib",
+      "sha256": "75fd14cca67f7a341ba8a04a4aff5bf498f3071e8b0406f89d4239e2dba70e77",
+      "bytes": 113317
+    },
+    {
+      "path": "models/controls/L3_model_card.json",
+      "sha256": "33fb663334bdbfbf79878025bf7e571da258a89562de8b607269d3e952d66250",
+      "bytes": 3336
+    },
+    {
+      "path": "models/controls/L5A_exploratory.joblib",
+      "sha256": "adb30f176a85c149a917ba9bef595b05d9cbec65fe59fc965328140669b5e630",
+      "bytes": 115896
+    },
+    {
+      "path": "models/controls/L5A_model_card.json",
+      "sha256": "2af4dbcf25fe16d13cedbdba1f55cdc359f6270ad052bbdbb3cfda5ce48b4e9e",
+      "bytes": 3723
+    },
+    {
+      "path": "models/controls/L5_exploratory.joblib",
+      "sha256": "31ca33afeb08d1af8c21a1d6c1d462458044a3f9102dfff68409ad14ebbe7a8e",
+      "bytes": 114874
+    },
+    {
+      "path": "models/controls/L5_model_card.json",
+      "sha256": "b68fbd951ed8ef19da0615099c771755235b1bbcc8318278b5fbfa151139f54b",
+      "bytes": 3452
+    },
+    {
+      "path": "models/kinematic/HI_Vflat_posterior.npz",
+      "sha256": "6fd63c86dec6ae9a31df2314d36012e813e5a828c6fc5cde14733029c8c2de4d",
+      "bytes": 700663
+    },
+    {
+      "path": "models/kinematic/HI_Wm50_over2_posterior.npz",
+      "sha256": "ab5e7c614a988969b563c37f5a8dbdb1d66f7110bd03d99f3cb81dc35e4a14d3",
+      "bytes": 709627
+    },
+    {
+      "path": "models/redshift/P/model_card.json",
+      "sha256": "2b4d7075b44774a8eade76d45a1d58857ec50d9ae47c0486aa1b35ba44f557bd",
+      "bytes": 3664
+    },
+    {
+      "path": "models/redshift/P/redshift_model.joblib",
+      "sha256": "afdd18d77867e73f814b12fc839c85ba449df2060607c88c1697f42c452364cd",
+      "bytes": 112964
+    },
+    {
+      "path": "models/redshift/PG/model_card.json",
+      "sha256": "bb95796fbcd9fd60c94586e50616e4fe08cf3fa40bc60792f11922a2469b55f8",
+      "bytes": 3876
+    },
+    {
+      "path": "models/redshift/PG/redshift_model.joblib",
+      "sha256": "3225f78f98fce903657c60735ef0a00af0ffd51d8f71e1c3222d604222f9d393",
+      "bytes": 114977
+    },
+    {
+      "path": "models/redshift/PGI/model_card.json",
+      "sha256": "cde76a1d3d8a42b8e111437b994e63dbc62399c9b9656ead7f05393aba6e4f3d",
+      "bytes": 5063
+    },
+    {
+      "path": "models/redshift/PGI/redshift_model.joblib",
+      "sha256": "958a5129276b85218d5a180cf9fffbe2295c085b1b4dd79d49e4b165b2b60c21",
+      "bytes": 116517
+    },
+    {
+      "path": "models/redshift/PGIA/model_card.json",
+      "sha256": "b504c46179ccb1dfbca31d9f7c2f7a3383f039495de4bb49c26c851390e86194",
+      "bytes": 6190
+    },
+    {
+      "path": "models/redshift/PGIA/redshift_model.joblib",
+      "sha256": "86f57d397571c4e8cbb63698f81887ffb3009b52d665acadac6975c19c94f730",
+      "bytes": 118727
+    },
+    {
+      "path": "results/DATA_CARD.json",
+      "sha256": "71b3f30dc6c1495a62a98a0f9860a2fccd9efc8cdc4d1dba79941d883bec164a",
+      "bytes": 1262
+    },
+    {
+      "path": "results/additional_arm_scores.csv",
+      "sha256": "82b5f2205dc78fb8abce7a9b17fe31993807fad35a8d9999dc753dcf84ae1e15",
+      "bytes": 62870
+    },
+    {
+      "path": "results/additional_observed_features.csv",
+      "sha256": "13c6b1303fd5ac44f735166a628014e9804ae43aaeabaf230b0d5ce6812bc1c1",
+      "bytes": 72366
+    },
+    {
+      "path": "results/additional_predictions.csv",
+      "sha256": "9fc5e6f9ceb77f22460b6421acdfba41c455e5648e6cf37d55cfc9cc3b93a844",
+      "bytes": 68544
+    },
+    {
+      "path": "results/archival_pitch_comparison.csv",
+      "sha256": "c400d5b66d69671e38deb8af97f2f61939c68e1a69064e00cde503afbe855019",
+      "bytes": 8307
+    },
+    {
+      "path": "results/btfr_loo_predictions.csv",
+      "sha256": "223b2e5a3eb1380ba817c88b0460b38cc0609de80dad8e6fd8a895195c66b397",
+      "bytes": 10358
+    },
+    {
+      "path": "results/controlled_metrics.csv",
+      "sha256": "fb8cb6682d14b3874c152e84d66f37328cd87d3640cce92d7ed6596c1d28632d",
+      "bytes": 652
+    },
+    {
+      "path": "results/controlled_predictions.csv",
+      "sha256": "cfcc7537a025356c057923e13697204d4ac9f0d3e5840449b5ae55d6185addec",
+      "bytes": 11025
+    },
+    {
+      "path": "results/finite_halo_predictions.csv",
+      "sha256": "8ed51f05a457d2378bd6e3d530aa4801a0bb0068356d9c38fbf25834beedeeac",
+      "bytes": 26390
+    },
+    {
+      "path": "results/original_observed_features.csv",
+      "sha256": "43185a3c9191f8a908d0a19e6731f88254196173755d54e3996d47418f94d601",
+      "bytes": 120165
+    },
+    {
+      "path": "results/original_test_predictions.csv",
+      "sha256": "da26d0aa22e57552b60d579803b74b68a68e868a77cf6e437e053f431796f27b",
+      "bytes": 12842
+    },
+    {
+      "path": "results/paired_galaxy_effects.csv",
+      "sha256": "696851e9f445dacf48b7265628459bf30960671d06a429ca819ab55f4dd177d3",
+      "bytes": 17908
+    },
+    {
+      "path": "results/paired_group_effects.csv",
+      "sha256": "cb26a424682f25e2687ebb095c6515d01b2517fdbc6c823ab78a65aec080ff86",
+      "bytes": 8213
+    },
+    {
+      "path": "results/sample_planning.csv",
+      "sha256": "bcaaa7e33c488507baca0c02386564b23249c87a6ffdb540457e240d2c35d021",
+      "bytes": 1231
+    },
+    {
+      "path": "tests/test_arm_geometry.py",
+      "sha256": "c234133b0bd6fdb20b4352e906d1e25ea3cd01d7a0bc0b2bf212ae3b3e0b1eaf",
+      "bytes": 2968
+    },
+    {
+      "path": "tests/test_axisymmetric_fluid.py",
+      "sha256": "13eef9d00d5eef23a4225759905be5b40ba53ecc29625879e7a7e3a315d64abe",
+      "bytes": 4304
+    },
+    {
+      "path": "tests/test_cli.py",
+      "sha256": "0b77bb9d12fc6a05c22846f9b439aed7d58d0f6afa85b0603b0b2a82c3d05a8d",
+      "bytes": 6560
+    },
+    {
+      "path": "tests/test_coupled_fluid.py",
+      "sha256": "9f84df59c154939c0a32fbb102c41ced0f0829fe2ee11a2ac3b41c5ec8b7d4ec",
+      "bytes": 4948
+    },
+    {
+      "path": "tests/test_distance.py",
+      "sha256": "9b3e5f7536680fb5ead6e05fa9a03ed404b3f9b3d07066058a02b06d3481a132",
+      "bytes": 5534
+    },
+    {
+      "path": "tests/test_erroraware_btfr.py",
+      "sha256": "a9069259dcebc8303721281b4585dd655a9eafe9c94d1773ea18eb34ca66bb8e",
+      "bytes": 1923
+    },
+    {
+      "path": "tests/test_external_evaluation.py",
+      "sha256": "3d33ab0f6a704455cdc03ca53255866406cd2d236adcae0850360852c79743e0",
+      "bytes": 2414
+    },
+    {
+      "path": "tests/test_filtering.py",
+      "sha256": "864ec41986962ba86c6540691d0dd05ab36c8e527af3325a660864ee62751982",
+      "bytes": 9674
+    },
+    {
+      "path": "tests/test_finite_fluid.py",
+      "sha256": "26ddbc4dec728cce6fd3eaf8bd008bf2fd343c16396be0e037639bbf533c1729",
+      "bytes": 4389
+    },
+    {
+      "path": "tests/test_fluid.py",
+      "sha256": "9cd7a51c9d65d9f35f11405a926c8a037dcaf9bae5b61aeb768332aaa9af6814",
+      "bytes": 4821
+    },
+    {
+      "path": "tests/test_geometry_source_reader.py",
+      "sha256": "b8701d9d28050ccb60224077525a53eee5aa2f0e80c9ec6d13daf2ee627417e7",
+      "bytes": 862
+    },
+    {
+      "path": "tests/test_independent_validation.py",
+      "sha256": "624004390b7ecd4747f538a2370ed77345acfa7555fd79781f4e1a4497273cb4",
+      "bytes": 1940
+    },
+    {
+      "path": "tests/test_kinematic_distance.py",
+      "sha256": "4438146be6216e4fe677151c74c756d870b8d752233596c03a6a79a98ddb871a",
+      "bytes": 1247
+    },
+    {
+      "path": "tests/test_kinematic_workbench.py",
+      "sha256": "590b293e98437fce7fbf89c5e924a59a6a1c6e7992a76aee7966b7f1cf6f559e",
+      "bytes": 2519
+    },
+    {
+      "path": "tests/test_morphology.py",
+      "sha256": "f8ed0e3cd932ccd358d32eee94eb24ed5fc2f7fe153f7aee5df40afb3b218236",
+      "bytes": 7243
+    },
+    {
+      "path": "tests/test_native.py",
+      "sha256": "75985ce2b403cbfe2fdcbeb0240989ad83bde0fa85ee24ae0abba8df34a2a428",
+      "bytes": 5494
+    },
+    {
+      "path": "tests/test_redshift.py",
+      "sha256": "566da77d8d4cd49feb2a15abc42de103bff37e5f61685fc593a5b644ae4439cc",
+      "bytes": 1899
+    },
+    {
+      "path": "tests/test_release_guard.py",
+      "sha256": "220a1a3ba3db3caf3c8ff3bc97a92b9ce7f95525a8d2d318e7819de9688a5d0e",
+      "bytes": 1567
+    },
+    {
+      "path": "tests/test_segmentation.py",
+      "sha256": "8802e329d9edfd3673b82d444395b3b80ddfeab8cdce46b0285cd3cc71b0fbbe",
+      "bytes": 7549
+    },
+    {
+      "path": "tests/test_spectral_kinematics.py",
+      "sha256": "f98fed9b9ee8aeb8875acf9ff678d804cd43334a5f8480651feb2fde67ab2c2e",
+      "bytes": 2163
+    }
+  ]
+}
