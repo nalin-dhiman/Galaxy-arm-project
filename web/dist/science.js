@@ -2,8 +2,37 @@
 export const ARCSEC_PER_RADIAN=206264.80624709636;
 export const G=4.30091e-6; // kpc (km/s)^2 / solar mass
 function positive(value,name){if(!Number.isFinite(value)||value<=0)throw new RangeError(`${name} must be positive and finite`);return value;}
+function point(value,name='Image point'){if(!Array.isArray(value)||value.length!==2||!value.every(Number.isFinite))throw new RangeError(`${name} must contain two finite coordinates`);return value;}
+function diskGeometry(center,inclinationDeg,positionAngleDeg){point(center,'Center');if(!Number.isFinite(inclinationDeg)||inclinationDeg<0||inclinationDeg>80)throw new RangeError('Disk inclination must be between 0 and 80 degrees');if(!Number.isFinite(positionAngleDeg))throw new RangeError('Disk angle must be finite');const a=positionAngleDeg*Math.PI/180;return {c:Math.cos(a),s:Math.sin(a),q:Math.cos(inclinationDeg*Math.PI/180)};}
+// Display coordinates: x increases right, y down. Disk angle is counterclockwise
+// from display +x in a y-up plane, NOT a celestial PA without an external WCS.
+export function deprojectPoint(imagePoint,center,inclinationDeg=0,positionAngleDeg=0){point(imagePoint);const {c,s,q}=diskGeometry(center,inclinationDeg,positionAngleDeg),x=imagePoint[0]-center[0],y=center[1]-imagePoint[1];return [x*c+y*s,(-x*s+y*c)/q];}
+export function projectPoint(diskPoint,center,inclinationDeg=0,positionAngleDeg=0){point(diskPoint,'Disk point');const {c,s,q}=diskGeometry(center,inclinationDeg,positionAngleDeg),x=diskPoint[0],y=diskPoint[1]*q;return [center[0]+x*c-y*s,center[1]-x*s-y*c];}
+export function fitLogSpiral(imagePoints,center,inclinationDeg=0,positionAngleDeg=0){
+  if(!Array.isArray(imagePoints)||imagePoints.length<3)throw new RangeError('Mark at least three ordered points along one arm');
+  const points=imagePoints.map(p=>deprojectPoint(p,center,inclinationDeg,positionAngleDeg)),radii=points.map(p=>Math.hypot(...p));
+  if(radii.some(r=>r<1e-6))throw new RangeError('An arm point cannot coincide with the disk center');
+  const angles=[];for(const p of points){let a=Math.atan2(p[1],p[0]);if(angles.length){while(a-angles.at(-1)>Math.PI)a-=2*Math.PI;while(a-angles.at(-1)<-Math.PI)a+=2*Math.PI;}angles.push(a);}
+  const differences=angles.slice(1).map((a,i)=>a-angles[i]);if(differences.some(d=>Math.abs(d)>Math.PI*.95))throw new RangeError('Neighboring arm points are nearly 180 degrees apart; add intermediate points');
+  const direction=Math.sign(angles.at(-1)-angles[0]);if(!direction||differences.some(d=>d*direction<-.01))throw new RangeError('Trace one arm in angular order without reversing direction');
+  const span=Math.max(...angles)-Math.min(...angles);if(span<20*Math.PI/180)throw new RangeError('Trace at least 20 degrees of azimuth for a pitch fit');
+  const logs=radii.map(Math.log),n=angles.length,meanAngle=angles.reduce((a,b)=>a+b,0)/n,meanLog=logs.reduce((a,b)=>a+b,0)/n;
+  const xx=angles.reduce((s,a)=>s+(a-meanAngle)**2,0),xy=angles.reduce((s,a,i)=>s+(a-meanAngle)*(logs[i]-meanLog),0),slope=xy/xx,intercept=meanLog-slope*meanAngle;
+  const residuals=angles.map((a,i)=>logs[i]-(intercept+slope*a)),sse=residuals.reduce((s,r)=>s+r*r,0),tss=logs.reduce((s,r)=>s+(r-meanLog)**2,0);
+  return {count:n,slope,intercept,signedPitchDeg:Math.atan(slope)*180/Math.PI,absolutePitchDeg:Math.abs(Math.atan(slope)*180/Math.PI),angleStart:Math.min(...angles),angleEnd:Math.max(...angles),azimuthSpanDeg:span*180/Math.PI,rmsLogRadius:Math.sqrt(sse/n),rSquared:tss>1e-20?1-sse/tss:null,radiiPixels:radii,anglesRadians:angles,residualLogRadius:residuals};
+}
+export function radialSpacing(imagePoints,center,inclinationDeg=0,positionAngleDeg=0,pixelScale=null,distanceMpc=null){
+  if(!Array.isArray(imagePoints)||imagePoints.length<2)throw new RangeError('Mark at least two arm intersections on the same radial ray');
+  if(pixelScale!==null)positive(pixelScale,'Original pixel scale');if(distanceMpc!==null)positive(distanceMpc,'Angular diameter distance');
+  const p=imagePoints.map(v=>deprojectPoint(v,center,inclinationDeg,positionAngleDeg)),r=p.map(v=>Math.hypot(...v));if(r.some(v=>v<1e-6))throw new RangeError('A radial mark cannot coincide with the disk center');
+  const angles=p.map(v=>Math.atan2(v[1],v[0])),mean=Math.atan2(angles.reduce((s,a)=>s+Math.sin(a),0),angles.reduce((s,a)=>s+Math.cos(a),0));
+  const spread=Math.max(...angles.map(a=>Math.abs(Math.atan2(Math.sin(a-mean),Math.cos(a-mean)))))*180/Math.PI;
+  if(spread>12)throw new RangeError('Radial marks must lie on one ray within 12 degrees; opposite sides are different rays');
+  const radii=[...r].sort((a,b)=>a-b),gaps=radii.slice(1).map((v,i)=>v-radii[i]);if(gaps.some(v=>v<1e-6))throw new RangeError('Radial marks must have distinct radii');
+  return {count:r.length,radiiPixels:radii,gapsPixels:gaps,meanGapPixels:gaps.reduce((a,b)=>a+b,0)/gaps.length,rayAngleDeg:mean*180/Math.PI,maxRayDeviationDeg:spread,gapsArcsec:pixelScale===null?null:gaps.map(v=>v*pixelScale),gapsKpc:pixelScale===null||distanceMpc===null?null:gaps.map(v=>v*pixelScale*distanceMpc*1000/ARCSEC_PER_RADIAN)};
+}
 export function separation(a,b,pixelScale=null,distanceMpc=null){
-  if(!a||!b||![...a,...b].every(Number.isFinite))throw new RangeError('Two finite image points required');
+  point(a,'First image point');point(b,'Second image point');
   const pixels=Math.hypot(a[0]-b[0],a[1]-b[1]);
   const arcsec=pixelScale===null?null:pixels*positive(pixelScale,'Original pixel scale');
   const kpc=distanceMpc===null?null:(positive(distanceMpc,'Angular diameter distance')*1000*(arcsec===null?NaN:arcsec)/ARCSEC_PER_RADIAN);

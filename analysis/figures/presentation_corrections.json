@@ -1,9 +1,0 @@
-{
-  "btfr_interval_width_denominator": {
-    "incorrect_caption": "reference distance",
-    "correct_caption": "predicted distance",
-    "median_width_over_prediction": 0.8220939773424587,
-    "median_width_over_reference": 0.8414188788534632,
-    "scope": "Caption correction only. Observations, predictions, intervals and figure graphics unchanged; frozen prior stages preserved."
-  }
-}

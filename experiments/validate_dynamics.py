@@ -1,5 +1,6 @@
 """Independent result-table checks, including original quoted-error scoring."""
 from pathlib import Path
+import argparse
 import hashlib
 import json
 import sys
@@ -8,8 +9,13 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--wide-bounds', action='store_true')
+parser.add_argument('--reference-fits', type=Path,
+                    help='Optional independent fit CSV for matching NFW/Burkert chi-square checks')
+args = parser.parse_args()
 OUT = ROOT/"executed_research/dynamics"
-if "--wide-bounds" in sys.argv:
+if args.wide_bounds:
     OUT = OUT/"wide_bounds"
 
 full = pd.read_csv(OUT/"full_fits.csv")
@@ -44,8 +50,8 @@ for row in splits.itertuples(index=False):
     assert hashlib.sha256(source.read_bytes()).hexdigest() == row.source_sha256
 
 cross_audit = {}
-if OUT.name != "wide_bounds":
-    old = pd.read_csv(ROOT/"research_review/benchmark_reported_errors/benchmark_corrected_fits.csv")
+if OUT.name != "wide_bounds" and args.reference_fits is not None:
+    old = pd.read_csv(args.reference_fits)
     for model in ("NFW", "Burkert"):
         new_rows = full[full.model == model+" + baryons"].set_index("galaxy")
         old_rows = old[old.model == f"Baryons + {model} (fixed Υ)"].set_index("galaxy")
@@ -55,6 +61,7 @@ if OUT.name != "wide_bounds":
         cross_audit[model] = maximum
 result = dict(full_fits_checked=len(full), heldout_fits_checked=len(held), source_hashes_checked=len(splits),
               maximum_roundtrip_scoring_error=maximum_metric_error, quoted_error_bic_recomputed=True,
+              independent_reference_compared=args.reference_fits is not None and OUT.name != "wide_bounds",
               maximum_chi2_difference_from_previous_independent_audit=cross_audit)
 
 # Targeted optimizer regression: a compact Lane-Emden core creates additional

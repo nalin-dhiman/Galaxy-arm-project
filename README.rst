@@ -15,22 +15,14 @@ https://nalin-dhiman.github.io/Galaxy-arm-project/ . It provides:
 * Local image upload, grayscale channels and spatial filters.
 * Two-point pixel/angular separation and physical separation when an external
   angular-diameter distance is supplied.
+* Manual arm tracing, logarithmic pitch fits and same-ray radial gaps, with
+  supplied disk-center, inclination and image-angle geometry.
 * A numerical spherical lowered-isothermal halo explorer.
 * An interactive view of the frozen observational results.
 
 Images are processed in the browser. The Python library supplies the calibrated
 FITS, PSF, learned-model and spectral-analysis workflows. Browser RGB channels
 are display channels; calibrated survey passbands require the Python workflow.
-
-Paper and supplement
---------------------
-
-The ``paper/`` directory contains the main paper, detailed supplementary
-methods, bibliography, and clean vector/raster figures. Compiled PDFs and an
-Overleaf-ready source ZIP are provided under ``web/dist/downloads/`` and through
-the application. Set ``main.tex`` as the Overleaf main document for the paper,
-or ``supplementary.tex`` for the supplement. Editable author information is in
-``author.tex``.
 
 Install the analysis software
 ----------------------------
@@ -64,8 +56,8 @@ Other measurements::
     galaxy-lab kinematics --help
     galaxy-lab btfr-distance --help
 
-Reproduce the paper's numerical comparisons
--------------------------------------------
+Reproduce numerical comparisons
+------------------------------
 
 The ``results/`` directory supplies the frozen galaxy-level predictions,
 grouped effects, observable feature tables, and an explicit data card. Run::
@@ -83,11 +75,7 @@ adaptations, not a reproduction of another paper's survey or neural estimator.
 equilibrium and validation drivers used for the larger research workflows.
 Some drivers expect their documented survey caches and historical acquisition
 directory layouts. The compact ``analysis/`` reproduction works directly with
-the tables included here. Rebuild all nine figures without survey downloads::
-
-    python analysis/figures/render_figures.py --output outputs/figures
-
-The renderer uses the attributed derived arrays supplied beside it. Raw survey caches can be reacquired from the recorded
+the tables included here. Raw survey caches can be reacquired from the recorded
 public services; they are not required to reproduce the tabulated comparisons.
 
 Scope of the evidence
@@ -98,8 +86,8 @@ brightness/radius control. Its eight arm summaries have not established an
 incremental redshift gain in the two reported test cohorts. The target is
 inherited NSA catalog redshift, rather than a geometric distance. The finite
 halo implementation is an equilibrium model based on established physics;
-viscosity is not identified by those static fits. Full assumptions, uncertainty
-and applications are described in the paper and supplement.
+viscosity is not identified by those static fits. Model cards and the results
+data card record the populations, calibration assumptions and measurement scope.
 
 Check the software
 ------------------
@@ -123,14 +111,22 @@ Repository contents
 ``galaxy_lab/`` contains the complete maintained Python library; ``models/``
 contains its saved arm, redshift and calibrated-kinematic artifacts; ``tests/``
 contains the numerical and interface tests; ``examples/`` contains a usable
-calibrated example; ``results/`` contains frozen numerical evidence; ``paper/``
-contains publication sources; and ``web/`` contains the browser application.
+calibrated example; ``results/`` contains frozen numerical evidence; and
+``web/`` contains the browser application.
+
+Repository scope
+----------------
+
+This repository distributes the application, analysis library, examples and
+reproducible numerical outputs. Generated reports and manuscripts are not part
+of the distribution. The browser deployment contains the static application
+and its compact numerical data; build logs and test artifacts are excluded.
 
 Credits and reuse
 -----------------
 
-See ``THIRD_PARTY_NOTICES.txt`` and the paper references for survey,
-citizen-science, algorithm and dependency credits. Legacy imagery is credited
+See ``THIRD_PARTY_NOTICES.txt`` for survey, citizen-science, algorithm and
+dependency credits and source links. Legacy imagery is credited
 to Legacy Surveys / D. Lang (Perimeter Institute). Public source availability
 does not change the terms of third-party data. The project owner's software
 licence selection is recorded separately when supplied.

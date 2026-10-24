@@ -322,9 +322,11 @@ def main():
     parser.add_argument('--download',action='store_true')
     parser.add_argument('--catalog-only',action='store_true')
     parser.add_argument('--audit-only',action='store_true')
+    parser.add_argument('--original-input-manifest',type=Path,
+                        help='Optional CSV of original input paths and SHA256 hashes to verify')
     args = parser.parse_args()
     if args.audit_only:
-        result=audit_inputs()
+        result=audit_inputs(args.original_input_manifest)
         if result['status']!='passed':
             raise RuntimeError('Acquisition audit failed; inspect executed_solid/data/acquisition_verification.json')
         return
@@ -378,7 +380,7 @@ def main():
                                       native_available=sum(r['status']=='available' for r in natives),
                                       psf_available=sum(r.get('psf',{}).get('status')=='available' for r in natives))),flush=True)
     manifests(selected,annotations,natives)
-    audit_inputs()
+    audit_inputs(args.original_input_manifest)
 
 
 def catalog_match(selected, download_requested=False):
@@ -451,7 +453,7 @@ def catalog_match(selected, download_requested=False):
                           valid_ugriz=info['valid_ugriz'],catalog=str(path))),flush=True)
 
 
-def audit_inputs():
+def audit_inputs(original_input_manifest=None):
     """Audit new and preserved inputs without changing previous result files."""
     selected=json.loads((OUT/'selected_targets.json').read_text())
     annotations=json.loads((OUT/'annotations/manifest.json').read_text())['targets']
@@ -489,8 +491,10 @@ def audit_inputs():
     if selected!=selection():
         problems.append('Frozen selection differs from the deterministic predeclared policy')
     preserved=[]
-    with (ROOT/'research_review/input_manifest.csv').open(newline='') as stream:
-        original=list(csv.DictReader(stream))
+    original=[]
+    if original_input_manifest is not None:
+        with Path(original_input_manifest).open(newline='') as stream:
+            original=list(csv.DictReader(stream))
     for record in original:
         check(record['path'],record['sha256'],'original_input',preserved)
     oldann=json.loads((ROOT/'executed_filters/annotations/manifest.json').read_text())
@@ -514,6 +518,7 @@ def audit_inputs():
     result=dict(status='passed' if not problems else 'failed',checked_at_utc=datetime.now(timezone.utc).isoformat(),
                 selected=len(ids),prior_ids_excluded=len(prior_ids),new_public_fits_hashes_checked=countfits,
                 expected_new_public_fits=481,original_hashes_checked=len(original),
+                original_input_preservation_checked=original_input_manifest is not None,
                 prior_public_fits_hashes_checked=len(preserved)-len(original),
                 sky_groups=len(groups),group_disjoint_splits=True,
                 annotation_available=sum(r.get('status')=='available' for r in annotations),

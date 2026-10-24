@@ -45,7 +45,8 @@ Finite-halo and BTFR diagnostic tables derive from public SPARC data and
 published velocity/error tables. Cite Lelli, McGaugh & Schombert2016, the
 Lelli et al.2019 BTFR data and the relevant original rotation-curve observations
 when reusing a galaxy's measurements. The established distance-calibration
-framework and model assumptions are described in the supplement.
+framework and model assumptions are recorded in the model metadata, data card
+and numerical implementation.
 https://astroweb.case.edu/SPARC/
 https://arxiv.org/abs/1606.09251
 https://arxiv.org/abs/2006.08615
@@ -54,8 +55,8 @@ Scientific software dependencies
 The project imports NumPy, SciPy, pandas, Matplotlib, Astropy, scikit-learn,
 scikit-image, joblib, requests, Pillow and pytest under their own terms.
 Installed dependency code and licences are not overwritten or relicensed by
-this repository. Citations for the scientific methods and packages appear in
-the paper's bibliography. The browser application uses native web APIs and
+this repository. The source modules and model metadata identify the scientific
+methods. The browser application uses native web APIs and
 its own JavaScript numerical implementation, without a bundled external CDN.
 
 Figure and data labels
